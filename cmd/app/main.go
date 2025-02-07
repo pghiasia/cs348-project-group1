@@ -1,6 +1,7 @@
 package main
 
 import (
+	"cs348-project-group1/pkg/load"
 	"cs348-project-group1/pkg/schema"
 	"database/sql"
 	"errors"
@@ -11,7 +12,10 @@ import (
 )
 
 func main() {
-	schema.CreateUsersTable()
+	schema.CreateUsersTables()
+	load.LoadUsersTable()
+	load.LoadUsersGenreTable()
+	load.LoadUsersActorTable()
 
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
@@ -19,10 +23,6 @@ func main() {
 	}
 	defer db.Close()
 
-	_, err = db.Exec(`INSERT INTO users SELECT * FROM read_csv('./test-data/users.csv')`)
-	if err != nil {
-		log.Fatal(err)
-	}
 	user_table := schema.User{}
 
 	row := db.QueryRow(`SELECT * FROM users`)
