@@ -9,22 +9,24 @@ var movies_schema = `
 CREATE TABLE movies (
 	mid VARCHAR(255) NOT NULL PRIMARY KEY,
     title VARCHAR(255),
-    release DATE,
+    release BIGINT,
 	rating FLOAT
 )`
 
 var movie_to_actors_schema = `
 CREATE TABLE movie_to_actor (
-	mid VARCHAR(255) NOT NULL PRIMARY KEY,
+	mid VARCHAR(255),
 	aid VARCHAR(255),
+	PRIMARY KEY(mid, aid),
 	FOREIGN KEY(mid) REFERENCES movies, 
 	FOREIGN KEY(aid) REFERENCES actors
 )`
 
 var movie_to_genre = `
 CREATE TABLE movie_to_genre (
-	mid VARCHAR(255) NOT NULL PRIMARY KEY,
+	mid VARCHAR(255),
 	genrename VARCHAR(255),
+	PRIMARY KEY(mid, genrename),
 	FOREIGN KEY(mid) REFERENCES movies, 
 )`
 

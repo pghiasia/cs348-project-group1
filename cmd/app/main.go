@@ -24,6 +24,9 @@ func main() {
 
 	//Movies Table Creation & Loading
 	schema.CreateMoviesTable()
+	load.LoadMoviesTable()
+	load.LoadMovieToActorTable()
+	load.LoadMovieToGenreTable()
 
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
@@ -33,12 +36,7 @@ func main() {
 
 	user_table := schema.User{}
 
-	row := db.QueryRow(`SELECT * FROM users`)
-	err = row.Scan(
-		&user_table.Uid, &user_table.Name,
-		&user_table.Dob, &user_table.Password,
-		&user_table.Language,
-	)
+	rows, nil := db.Query(`SELECT * FROM users`)
 
 	if errors.Is(err, sql.ErrNoRows) {
 		log.Println("no rows")
@@ -46,5 +44,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("uid: %d, name: %s, dob: %s, password: %s, language: %s\n", user_table.Uid, user_table.Name, user_table.Dob, user_table.Password, user_table.Language)
+	for rows.Next() {
+		_ = rows.Scan(
+			&user_table.Uid, &user_table.Name,
+			&user_table.Dob, &user_table.Password,
+			&user_table.Language,
+		)
+		fmt.Printf("uid: %d, name: %s, dob: %s, password: %s, language: %s\n", user_table.Uid, user_table.Name, user_table.Dob, user_table.Password, user_table.Language)
+	}
 }
