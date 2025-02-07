@@ -13,13 +13,13 @@ import (
 func main() {
 	schema.CreateUsersTable()
 
-	db, err := sql.Open("duckdb", "./moviedb")
+	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer db.Close()
 
-	_, err = db.Exec(`INSERT INTO users SELECT * FROM read_csv('./users.csv')`)
+	_, err = db.Exec(`INSERT INTO users SELECT * FROM read_csv('./test-data/users.csv')`)
 	if err != nil {
 		log.Fatal(err)
 	}

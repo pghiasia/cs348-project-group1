@@ -23,7 +23,7 @@ type User struct {
 }
 
 func CreateUsersTable() {
-	db, err := sql.Open("duckdb", "./moviedb")
+	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
 	}
