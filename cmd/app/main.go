@@ -22,6 +22,9 @@ func main() {
 	schema.CreateActorTable()
 	load.LoadActorsTable()
 
+	//Movies Table Creation & Loading
+	schema.CreateMoviesTable()
+
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
