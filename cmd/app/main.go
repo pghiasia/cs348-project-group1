@@ -12,10 +12,15 @@ import (
 )
 
 func main() {
+	//Users Table Creation & Loading
 	schema.CreateUsersTables()
 	load.LoadUsersTable()
 	load.LoadUsersGenreTable()
 	load.LoadUsersActorTable()
+
+	//Actors Table Creation & Loading
+	schema.CreateActorTable()
+	load.LoadActorsTable()
 
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
