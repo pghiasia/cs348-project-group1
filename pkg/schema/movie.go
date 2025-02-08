@@ -33,8 +33,8 @@ CREATE TABLE movie_to_genre (
 type Movie struct {
 	Mid     string  `db:"mid"`
 	Title   string  `db:"title"`
-	release string  `db:"release"`
-	rating  float32 `db:"float"`
+	Release string  `db:"release"`
+	Rating  float32 `db:"float"`
 }
 
 type MovieToActor struct {
