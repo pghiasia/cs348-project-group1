@@ -11,7 +11,7 @@ import (
 	_ "github.com/marcboeker/go-duckdb"
 )
 
-func list_uers(db *sql.DB) {
+func list_users(db *sql.DB) {
 	user_table := schema.User{}
 
 	rows, err := db.Query(`SELECT * FROM users`)
@@ -56,39 +56,44 @@ func list_highest_rating_movie(db *sql.DB) {
 	row := db.QueryRow(q)
 	_ = row.Scan(&movie_table.Title, &movie_table.Rating)
 	fmt.Printf("movie %s has a the highest rating of: %.2f\n", movie_table.Title, movie_table.Rating)
-
 }
 
-// fix it later.
-func list_highest_rating_movie_in_genre(db *sql.DB) {
-	var genre string
-	print("!! Currently only supports Romance, Documentary, Short, Animation, Comedy, Sport, as we only have these in the sample data, and haven't implemented null checking yet \n Please entre the Genre: ")
-	fmt.Scan(&genre)
-	println("")
 
-	fmt.Printf("\n\n ******** Listing Movie with Highest Rating in %s ******** \n\n", genre)
+func list_highest_rating_movie_in_actor(db *sql.DB) {
+	var first_name string
+	var last_name string
+    println("\n\n ******** Listing Movie with Highest Rating with respect to an Actor.******** \n\n")
+
+    print("\n\nFirst Name: ")
+	fmt.Scanln(&first_name)
+    print("\n\nLast Name: ")
+	fmt.Scanln(&last_name)
+
+    actor := first_name + " " + last_name
+
+    fmt.Printf("\n\n ******** Listing Movie with Highest Rating with respect to %s ******** \n\n", actor)
 
 	type Output struct {
 		Title  string
-		Genre  string
+		Actor  string
 		Rating float32
 	}
 
+
 	var q = `
-	SELECT m.title, g.genrename, m.rating
-  	FROM movies m
-  	JOIN movie_to_genre g ON m.mid = g.mid
-  	WHERE g.genrename LIKE ?
+	SELECT m.title, m.rating, a.name
+  	FROM movies m NATURAL JOIN movie_to_actor ma NATURAL JOIN actors a
+  	WHERE a.name = ?
   	ORDER BY m.rating DESC
   	LIMIT 1;
 	`
 
 	output := Output{}
 
-	row := db.QueryRow(q, "%"+genre+"%")
-	_ = row.Scan(&output.Title, &output.Genre, &output.Rating)
+	row := db.QueryRow(q, actor)
+    _ = row.Scan(&output.Title, &output.Rating, &output.Actor)
 
-	fmt.Printf("movie %s in %s has a the highest rating of: %.2f\n", output.Title, output.Genre, output.Rating)
+	fmt.Printf("movie %s with actor %s has the highest rating of: %.2f\n", output.Title, output.Actor, output.Rating)
 }
 
 func main() {
@@ -111,7 +116,5 @@ func main() {
 	}
 	defer db.Close()
 
-	// list_movie_ratings(db)
-	// list_highest_rating_movie(db)
-	// list_highest_rating_movie_in_genre(db)
+	list_highest_rating_movie_in_actor(db)
 }

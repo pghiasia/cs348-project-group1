@@ -29,7 +29,8 @@ func CreateUsersTables() {
 	}
 	defer db.Close()
 
-	_, err = db.Exec(users_schema)
+    drop := "DROP TABLE IF EXISTS users;"
+	_, err = db.Exec(drop + users_schema)
 	if err != nil {
 		log.Fatal(err)
 	}

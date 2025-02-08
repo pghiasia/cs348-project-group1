@@ -44,7 +44,9 @@ func CreateMoviesTable() {
 	}
 	defer db.Close()
 
-	_, err = db.Exec(movies_schema)
+    dropMovies := "DROP TABLE IF EXISTS movies;"
+    dropCast := "DROP TABLE IF EXISTS movie_to_actor;"
+    _, err = db.Exec(dropCast + dropMovies + movies_schema)
 	if err != nil {
 		log.Fatal(err)
 	}
