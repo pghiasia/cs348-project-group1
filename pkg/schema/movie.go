@@ -5,14 +5,14 @@ import (
 	"log"
 )
 
-
 var movies_schema = `
 CREATE TABLE movies (
 	mid VARCHAR(255) NOT NULL PRIMARY KEY,
     title VARCHAR(255),
     genres VARCHAR(255),
     release BIGINT,
-	rating FLOAT
+	rating FLOAT,
+    numVotes INT
 )`
 
 var movie_to_actors_schema = `
@@ -25,11 +25,12 @@ CREATE TABLE movie_to_actor (
 )`
 
 type Movie struct {
-	Mid     string  `db:"mid"`
-	Title   string  `db:"title"`
-	Genres   string  `db:"genres"`
-	Release string  `db:"release"`
-	Rating  float32 `db:"float"`
+    Mid     string  `db:"mid"`
+    Title   string  `db:"title"`
+    Genres   string  `db:"genres"`
+    Release string  `db:"release"`
+    Rating  float32 `db:"rating"`
+    NumVotes  float32 `db:"numVotes"`
 }
 
 type MovieToActor struct {
