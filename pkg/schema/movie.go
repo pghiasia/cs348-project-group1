@@ -5,10 +5,6 @@ import (
 	"log"
 )
 
-// Movies(mid, title, genres, releaseYear, avgRating)
-// Cast(mid, aid)
-// Actor(aid, name, birthYear, deathYear)
-// Users(uid, userName, dateOfBirth, language, password)
 
 var movies_schema = `
 CREATE TABLE movies (

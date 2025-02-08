@@ -95,8 +95,6 @@ func main() {
 	//Users Table Creation & Loading
 	schema.CreateUsersTables()
 	load.LoadUsersTable()
-	load.LoadUsersGenreTable()
-	load.LoadUsersActorTable()
 
 	//Actors Table Creation & Loading
 	schema.CreateActorTable()
