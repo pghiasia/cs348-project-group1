@@ -11,7 +11,7 @@ The link to the milestone 1 report can be found here: [report.pdf](https://docs.
 
 Main features:  
 R6: list_highest_rating_movie(db *sql.DB)  
-    - finds the movie with the max rating.
+    - finds the movie with the max rating.  
 R9: list_highest_rating_movie_in_actor(db *sql.DB)  
     - finds the highest ranking movie which involved a specific actor.
 
