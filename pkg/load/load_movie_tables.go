@@ -14,7 +14,7 @@ func LoadMoviesTable() {
 
 	var insertion_query = `
 	INSERT INTO movies
-	SELECT name_basics.tconst as mid, primaryTitle as title, startYear as release, averageRating as rating
+	SELECT name_basics.tconst as mid, primaryTitle as title, genres, startYear as release, averageRating as rating
 	FROM read_csv("./test-data/title.basics.tsv") as name_basics
 	JOIN read_csv("./test-data/title.ratings.tsv") as ratings
 		ON name_basics.tconst = ratings.tconst

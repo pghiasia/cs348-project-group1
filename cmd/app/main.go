@@ -59,6 +59,7 @@ func list_highest_rating_movie(db *sql.DB) {
 
 }
 
+// fix it later.
 func list_highest_rating_movie_in_genre(db *sql.DB) {
 	var genre string
 	print("!! Currently only supports Romance, Documentary, Short, Animation, Comedy, Sport, as we only have these in the sample data, and haven't implemented null checking yet \n Please entre the Genre: ")
@@ -89,6 +90,7 @@ func list_highest_rating_movie_in_genre(db *sql.DB) {
 
 	fmt.Printf("movie %s in %s has a the highest rating of: %.2f\n", output.Title, output.Genre, output.Rating)
 }
+
 func main() {
 	//Users Table Creation & Loading
 	schema.CreateUsersTables()
@@ -104,7 +106,6 @@ func main() {
 	schema.CreateMoviesTable()
 	load.LoadMoviesTable()
 	load.LoadMovieToActorTable()
-	load.LoadMovieToGenreTable()
 
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
@@ -112,7 +113,7 @@ func main() {
 	}
 	defer db.Close()
 
-	list_movie_ratings(db)
-	list_highest_rating_movie(db)
-	list_highest_rating_movie_in_genre(db)
+	// list_movie_ratings(db)
+	// list_highest_rating_movie(db)
+	// list_highest_rating_movie_in_genre(db)
 }

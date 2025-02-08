@@ -5,10 +5,16 @@ import (
 	"log"
 )
 
+// Movies(mid, title, genres, releaseYear, avgRating)
+// Cast(mid, aid)
+// Actor(aid, name, birthYear, deathYear)
+// Users(uid, userName, dateOfBirth, language, password)
+
 var movies_schema = `
 CREATE TABLE movies (
 	mid VARCHAR(255) NOT NULL PRIMARY KEY,
     title VARCHAR(255),
+    genres VARCHAR(255),
     release BIGINT,
 	rating FLOAT
 )`
@@ -22,17 +28,10 @@ CREATE TABLE movie_to_actor (
 	FOREIGN KEY(aid) REFERENCES actors
 )`
 
-var movie_to_genre = `
-CREATE TABLE movie_to_genre (
-	mid VARCHAR(255),
-	genrename VARCHAR(255),
-	PRIMARY KEY(mid, genrename),
-	FOREIGN KEY(mid) REFERENCES movies, 
-)`
-
 type Movie struct {
 	Mid     string  `db:"mid"`
 	Title   string  `db:"title"`
+	Genres   string  `db:"genres"`
 	Release string  `db:"release"`
 	Rating  float32 `db:"float"`
 }
@@ -40,11 +39,6 @@ type Movie struct {
 type MovieToActor struct {
 	Mid string `db:"mid"`
 	Aid string `db:"aid"`
-}
-
-type MovieToGenre struct {
-	Mid       string `db:"mid"`
-	GenreName string `db:"genrename"`
 }
 
 func CreateMoviesTable() {
@@ -65,10 +59,4 @@ func CreateMoviesTable() {
 		log.Fatal(err)
 	}
 	println("Movie To Actors Relation Created")
-
-	_, err = db.Exec(movie_to_genre)
-	if err != nil {
-		log.Fatal(err)
-	}
-	println("Movie To Genre Relation Created")
 }
