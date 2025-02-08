@@ -14,7 +14,8 @@ R6: list_highest_rating_movie(db *sql.DB)
     - finds the movie with the max rating.
 R9: list_highest_rating_movie_in_actor(db *sql.DB)
     - finds the highest ranking movie which involved a specific actor.
-note: other function queries have been implemented in SQL files.
+
+note: the top level features directory contains the SQL queries and outputs for functions R6, R7, R8, R9.
 
 Miscellaneous to be possibly used in the future, not part of milestone 1:
 - The `list_movie_ratings` function created in the main file implements the feature where the users query all movies with their ratings.
