@@ -55,7 +55,7 @@ func list_highest_rating_movie(db *sql.DB) {
 	movie_table := schema.Movie{}
 	row := db.QueryRow(q)
 	_ = row.Scan(&movie_table.Title, &movie_table.Rating)
-	fmt.Printf("movie %s has a the highest rating of: %.2f\n", movie_table.Title, movie_table.Rating)
+	fmt.Printf("movie %s has the highest rating of: %.2f\n", movie_table.Title, movie_table.Rating)
 }
 
 
@@ -116,5 +116,6 @@ func main() {
 	}
 	defer db.Close()
 
-	list_highest_rating_movie_in_actor(db)
+    list_highest_rating_movie(db);
+    //	list_highest_rating_movie_in_actor(db)
 }
