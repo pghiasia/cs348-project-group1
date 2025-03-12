@@ -25,12 +25,12 @@ CREATE TABLE movie_to_actor (
 )`
 
 type Movie struct {
-    Mid     string  `db:"mid"`
-    Title   string  `db:"title"`
-    Genres   string  `db:"genres"`
-    Release string  `db:"release"`
-    Rating  float32 `db:"rating"`
-    NumVotes  float32 `db:"numVotes"`
+	Mid      string  `db:"mid"`
+	Title    string  `db:"title"`
+	Genres   string  `db:"genres"`
+	Release  string  `db:"release"`
+	Rating   float32 `db:"rating"`
+	NumVotes float32 `db:"numVotes"`
 }
 
 type MovieToActor struct {
@@ -45,9 +45,9 @@ func CreateMoviesTable() {
 	}
 	defer db.Close()
 
-    dropMovies := "DROP TABLE IF EXISTS movies;"
-    dropCast := "DROP TABLE IF EXISTS movie_to_actor;"
-    _, err = db.Exec(dropCast + dropMovies + movies_schema)
+	dropMovies := "DROP TABLE IF EXISTS movies;"
+	dropCast := "DROP TABLE IF EXISTS movie_to_actor;"
+	_, err = db.Exec(dropCast + dropMovies + movies_schema)
 	if err != nil {
 		log.Fatal(err)
 	}
