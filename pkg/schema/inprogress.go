@@ -29,12 +29,98 @@ CREATE TABLE workedOn (
 )`
 
 var titles_schema = `
-CREATE TABLE workedOn (
+CREATE TABLE titles (
+	CHECK (rating <= 10 AND rating >= 0),
 	isAdult BOOLEAN,
 	tID VARCHAR(255) NOT NULL,
     releaseYear VARCHAR(255),
-    avgRating DECIMAL(10,10),
 	originalTitle VARCHAR(255),
+	averageRating DECIMAL(2,1),
+	numVotes INT,
+	runtimeMinutes INT,
 	primaryTitle VARCHAR(255),
 	PRIMARY KEY (tID),
 )`
+
+
+
+var related_genres_schema = `
+CREATE TABLE relatedGenres (
+	genre VARCHAR(256),
+	tID VARCHAR(256),
+	PRIMARY KEY (genre, tID),
+    FOREIGN KEY (pID) REFERENCES titles(tID),
+	FOREIGN KEY (genre) REFERENCES genres(genre),
+)	
+
+`
+
+var genres = `
+CREATE TABLE genres (
+	genre VARCHAR(256) PRIMARY KEY,
+)	
+`
+
+var users_schema = `
+CREATE TABLE users(
+	uID VARCHAR(255) PRIMARY KEY,
+	name VARCHAR(255),
+	DOB DATE NOT NULL,
+	language VARCHAR(255),
+	password VARCHAR(255) NOT NULL,
+	
+)
+`
+
+var fave_titles_schema = `
+CREATE TABLE favTitles (
+	tID VARCHAR(256),
+	uID VARCHAR(256),
+	ranking INT,
+	PRIMARY KEY (pID, tID),
+    FOREIGN KEY (pID) REFERENCES users(uID),
+	FOREIGN KEY (tID) REFERENCES titles(tID),
+)
+`
+
+var episodes_schema `
+CREATE TABLE episodes (
+	tID VARCHAR(256) PRIMARY KEY,
+	episodeNumber INT,
+	seasonNumber INT,
+	FOREIGN KEY (tID) REFERENCES titles(tID),
+)
+`
+
+var series_schema `
+CREATE TABLE series (
+	tID VARCHAR(256) PRIMARY KEY,
+	endYear INT,
+	FOREIGN KEY (tID) REFERENCES titles(tID),
+)
+`
+var short_schema `
+CREATE TABLE short(
+	tID VARCHAR(256) PRIMARY KEY,
+	FOREIGN KEY (tID) REFERENCES titles(tID),
+)
+`
+
+var movie_schema `
+CREATE TABLE movie (
+	tID VARCHAR(256) PRIMARY KEY,
+	FOREIGN KEY (tID) REFERENCES titles(tID),
+)
+`
+
+var has_episode_schema `
+CREATE TABLE hasEpisode (
+	episodeID VARCHAR(256) UNIQUE,
+    seriesID VARCHAR(256),
+	PRIMARY KEY (episodeID, seriesID),
+	FOREIGN KEY (episodeID) REFERENCES episode(tID),
+	FOREIGN KEY (seriesID) REFERENCES series(tID),
+)
+`
+
+
