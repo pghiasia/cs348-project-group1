@@ -1,6 +1,7 @@
 package web
 
 import (
+	"cs348-project-group1/web/movie"
 	"cs348-project-group1/web/user"
 
 	"github.com/gin-contrib/cors"
@@ -16,5 +17,6 @@ func InitRouter() *gin.Engine {
 	r.POST("/user/signin", user.SignIn)
 	r.GET("/user", user.GetUser)
 	r.GET("/users", user.GetUsers)
+	r.POST("/movies", movie.GetMovies)
 	return r
 }

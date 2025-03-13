@@ -4,17 +4,71 @@ import (
 	"cs348-project-group1/pkg/schema"
 	"database/sql"
 	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-func list_movie_ratings(db *sql.DB) {
-	println("\n\n ******** Listing Movie Ratings ******** \n\n")
-	movie_table := schema.Movie{}
-	rows, _ := db.Query(`SELECT title, rating FROM movies`)
+type httpError struct {
+	StatusCode int    `json:"status_code"`
+	Message    string `json:"message"`
+}
 
-	for rows.Next() {
-		_ = rows.Scan(&movie_table.Title, &movie_table.Rating)
-		fmt.Printf("movie %s has a rating of: %.2f\n", movie_table.Title, movie_table.Rating)
+type getMoviesRequest struct {
+	Sortby string `json:"sortby"`
+}
+
+func GetMovies(c *gin.Context) {
+	var requestBody getMoviesRequest
+
+	if err := c.BindJSON(&requestBody); err != nil {
+		c.JSON(http.StatusBadRequest, httpError{
+			StatusCode: http.StatusBadRequest,
+			Message:    "Invalid Request Body",
+		})
+		return
 	}
+
+	db, err := sql.Open("duckdb", "./movie.db")
+	defer db.Close()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, httpError{
+			StatusCode: http.StatusInternalServerError,
+			Message:    err.Error(),
+		})
+		return
+	}
+
+	query := fmt.Sprintf("SELECT mid, title, genres, release, rating, numVotes FROM movies ORDER BY %s DESC", requestBody.Sortby)
+	rows, err := db.Query(query)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, httpError{
+			StatusCode: http.StatusInternalServerError,
+			Message:    err.Error(),
+		})
+		return
+	}
+	defer rows.Close()
+
+	var movies []schema.Movie
+	for rows.Next() {
+		var movie schema.Movie
+		err := rows.Scan(
+			&movie.Mid, &movie.Title, &movie.Genres,
+			&movie.Release, &movie.Rating, &movie.NumVotes,
+		)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, httpError{
+				StatusCode: http.StatusInternalServerError,
+				Message:    err.Error(),
+			})
+			return
+		}
+		movies = append(movies, movie)
+	}
+
+	c.JSON(http.StatusOK, movies)
 }
 
 func list_highest_rating_movie(db *sql.DB) {
