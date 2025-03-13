@@ -3,7 +3,7 @@ import MovieCard from '../components/movieCard';
 import MovieModal from '../components/movieModal';
 import { Container, Grid, Box, Button } from '@mui/material';
 
-const Movie = () => {
+const Movie = () => { 
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [open, setOpen] = useState(false);

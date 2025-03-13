@@ -12,6 +12,10 @@ function Login() {
   const [language, setLanguage] = useState('');
   const [dob, setDob] = useState('');
   const [loggedIn, setLoggedIn] = useState(false)
+  const [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorDesc, setPasswordErrorDesc] = useState('');
+  const [signupError, setSignupError] = useState('')
+  const [signupErrorDesc, setSignupErrorDesc] = useState('')
 
   const handleSignIn = async (type, e) => {
     e.preventDefault(); // Prevent form from submitting normally
@@ -19,7 +23,9 @@ function Login() {
     try {
       if (type === "signup" && 
         (name === '' || password === '' || dob === '' || language === '')) {
-        throw new Error('Please fill out all fields');
+          setSignupError(true)
+          setSignupErrorDesc("Please fill out all fields")
+          throw new Error('Please fill out all fields');
       }
       console.log(JSON.stringify({ name, password, language, dob }));
       const response = await fetch(`http://localhost:9888/user/${type}`, {
@@ -43,6 +49,8 @@ function Login() {
       setLoggedIn(true)
     } catch (error) {
       console.error('Login error:', error);
+      setPasswordError(true);
+      setPasswordErrorDesc("Invalid username or password");
     }
   };
 
@@ -121,6 +129,8 @@ function Login() {
             placeholder="Enter username here.."
             value={name}
             onChange={handleUsernameChange}
+            error={signupError}
+            helperText={signupErrorDesc}
           />
           <TextField
             label="Password"
@@ -129,6 +139,8 @@ function Login() {
             placeholder="Enter password here.."
             value={password}
             onChange={handlePasswordChange}
+            error={passwordError}
+            helperText={passwordErrorDesc}
           />
           <TextField
             label="Language"
@@ -136,6 +148,8 @@ function Login() {
             placeholder="Enter language here.."
             value={language}
             onChange={handleLanguageChange}
+            error={signupError}
+            helperText={signupErrorDesc}
           />
           <TextField
             label="Date of Birth"
@@ -143,6 +157,8 @@ function Login() {
             placeholder="Enter DOB here.."
             value={dob}
             onChange={handleDobChange}
+            error={signupError}
+            helperText={signupErrorDesc}
           />
           <Box display="flex" gap={3} marginTop={5} justifyContent="space-around">
             <Button variant="contained" color='primary' onClick={(e) => handleSignIn("signin", e)}>Login</Button>
