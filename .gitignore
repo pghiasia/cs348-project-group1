@@ -1,3 +1,4 @@
 setup/postgres_data/
 **/.DS_Store
 **/*.db
+bigData/
