@@ -1,3 +1,24 @@
 SELECT *
-FROM movies m NATURAL JOIN movie_to_actor ma NATURAL JOIN actors a
-WHERE a.name = 'Brigitte Bardot' AND m.genres LIKE '%Romance%';
+
+(((((SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes
+FROM movies) 
+UNION
+(SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes
+FROM series) 
+UNION
+(SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes
+FROM short))
+
+NATURAL JOIN 
+
+genres)
+
+NATURAL JOIN 
+
+workedOn)
+
+NATURAL JOIN 
+
+people) AS a
+
+WHERE a.name = 'Brigitte Bardot' AND a.genres LIKE '%Romance%';

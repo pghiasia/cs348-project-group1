@@ -29,7 +29,11 @@ func LoadUsersTable(filePath string) {
 	}
 	defer db.Close()
 
-	_, err = db.Exec(`INSERT INTO users SELECT * FROM read_csv('?')`, filePath)
+	_, err = db.Exec(`
+	INSERT INTO users 
+	SELECT uID, name, DOB, language, password
+	FROM read_csv('?')
+	`, filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -67,7 +71,7 @@ func LoadPeopleTable(filePath string) {
 
 	var insertion_query = `
 	INSERT INTO people
-	SELECT nconst as pID, primaryName as name, birthYear, deathYear, primaryProfession, knownForTitles
+	SELECT nconst as pID, birthYear, deathYear, primaryName as name, knownForTitles, primaryProfession
 	FROM read_csv(?, delim='\t')
 	`
 	_, err = db.Exec(insertion_query, filePath)
@@ -109,7 +113,7 @@ func LoadSeriesTable(basicPath string, ratingsPath string) {
 
 	var insertion_query = `
 	INSERT INTO series
-	SELECT tconst as tID, isAdult, startYear AS releaseYear, endYear, originalTitle, primaryTitle, runtimeMinutes, averageRating, numVotes
+	SELECT tconst as tID, isAdult, startYear AS releaseYear, endYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle
 	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
 	WHERE titleType = 'tvseries'
 	`
@@ -131,7 +135,7 @@ func LoadShortTable(basicPath string, ratingsPath string) {
 
 	var insertion_query = `
 	INSERT INTO short
-	SELECT tconst as tID, isAdult, startYear AS releaseYear, primaryTitle, originalTitle, runtimeMinutes, averageRating, numVotes
+	SELECT tconst as tID, isAdult, startYear AS releaseYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle
 	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
 	WHERE titleType = 'short'
 	`
@@ -153,7 +157,7 @@ func LoadMovieTable(basicPath string, ratingsPath string) {
 
 	var insertion_query = `
 	INSERT INTO movie
-	SELECT tconst as tID, isAdult, startYear AS releaseYear, primaryTitle, originalTitle, runtimeMinutes, averageRating, numVotes
+	SELECT tconst as tID, isAdult, startYear AS releaseYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle
 	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
 	WHERE titleType = 'movie'
 	`
