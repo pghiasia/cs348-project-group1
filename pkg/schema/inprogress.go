@@ -14,7 +14,7 @@ var people_schema = `
 CREATE TABLE people (
 	pID VARCHAR(255) NOT NULL PRIMARY KEY,
     birthYear INT,
-    deathYear INT,
+    deathYear VARCHAR(255),
 	name VARCHAR(255),
 	knownForTitles VARCHAR(255),
 	primaryProfession VARCHAR(255)
@@ -25,7 +25,7 @@ CREATE TABLE workedOn (
 	pID VARCHAR(255) NOT NULL,
 	tID VARCHAR(255) NOT NULL,
     jobTitle VARCHAR(255),
-    creditOrder INT,
+    creditOrder VARCHAR(255),
 	category VARCHAR(255),
 	characters VARCHAR(255),
 	PRIMARY KEY (pID, tID),
