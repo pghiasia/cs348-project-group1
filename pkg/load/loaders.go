@@ -6,19 +6,6 @@ import (
 )
 
 func LoadFavTitlesTable(basicPath string, userPath string) {
-	db, err := sql.Open("duckdb", "./movie.db")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
-
-	_, err = db.Exec(`INSERT INTO favTitles 
-        SELECT * FROM read_csv('?') NATURAL JOIN`, basicPath, userPath)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	println("Users Loaded")
 }
 
 
@@ -29,11 +16,9 @@ func LoadUsersTable(filePath string) {
 	}
 	defer db.Close()
 
-	_, err = db.Exec(`
-	INSERT INTO users 
+	_, err = db.Exec(`INSERT INTO users 
 	SELECT uID, name, DOB, language, password
-	FROM read_csv('?')
-	`, filePath)
+	FROM read_csv(?)`, filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -114,7 +99,7 @@ func LoadSeriesTable(basicPath string, ratingsPath string) {
 	var insertion_query = `
 	INSERT INTO series
 	SELECT tconst as tID, isAdult, startYear AS releaseYear, endYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle
-	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
+	FROM read_csv(?, delim='\t') AS A1 NATURAL JOIN read_csv(?, delim='\t') AS A2
 	WHERE titleType = 'tvseries'
 	`
 	_, err = db.Exec(insertion_query, basicPath, ratingsPath)

@@ -19,12 +19,11 @@ func initProdDb() {
     load.LoadPeopleTable("./test-data/name.basics.tsv")
 	load.LoadUsersTable("./test-data/usersProd.csv")
     load.LoadSeriesTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv")
-    load.LoadShortTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv")
-    load.LoadMovieTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv")
-    load.LoadEpisodesTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv", "./test-data/title.episode.tsv")
-//    load.LoadFavTitlesTable("./test-data/title.basics.tsv", "./test-data/usersProd.csv")
-    load.LoadGenresTable("./test-data/title.basics.tsv")
-    load.LoadWorkedOnTable("./test-data/title.principals.tsv")
+ //    load.LoadShortTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv")
+ //    load.LoadMovieTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv")
+ //    load.LoadEpisodesTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv", "./test-data/title.episode.tsv")
+ //    load.LoadGenresTable("./test-data/title.basics.tsv")
+ //    load.LoadWorkedOnTable("./test-data/title.principals.tsv")
 }
 
 
