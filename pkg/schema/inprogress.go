@@ -28,19 +28,7 @@ CREATE TABLE workedOn (
 	FOREIGN KEY (tID) REFERENCES titles(tID)
 )`
 
-var titles_schema = `
-CREATE TABLE titles (
-	CHECK (rating <= 10 AND rating >= 0),
-	isAdult BOOLEAN,
-	tID VARCHAR(255) NOT NULL,
-    releaseYear VARCHAR(255),
-	originalTitle VARCHAR(255),
-	averageRating DECIMAL(2,1),
-	numVotes INT,
-	runtimeMinutes INT,
-	primaryTitle VARCHAR(255),
-	PRIMARY KEY (tID),
-)`
+
 
 
 
@@ -82,6 +70,21 @@ CREATE TABLE favTitles (
 	FOREIGN KEY (tID) REFERENCES titles(tID),
 )
 `
+
+var titles_schema = `
+CREATE TABLE titles (
+	CHECK (rating <= 10 AND rating >= 0),
+	isAdult BOOLEAN,
+	tID VARCHAR(255) NOT NULL,
+    releaseYear VARCHAR(255),
+	originalTitle VARCHAR(255),
+	averageRating DECIMAL(2,1),
+	numVotes INT,
+	runtimeMinutes INT,
+	primaryTitle VARCHAR(255),
+	PRIMARY KEY (tID),
+)`
+
 
 var episodes_schema `
 CREATE TABLE episodes (
