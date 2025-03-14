@@ -133,4 +133,23 @@ func LoadMovieTable() {
 	println("Movie titles Loaded")
 }
 
+func LoadWorkedOnTable() {
+	db, err := sql.Open("duckdb", "./movie.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	var insertion_query = `
+	INSERT INTO workedOn
+	SELECT tconst as tID, nconst as pID, job as jobTitle, ordering AS creditOrder, category, characters
+	FROM read_csv("./test-data/title.principals.tsv")
+	`
+	_, err = db.Exec(insertion_query)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	println("workedOn Loaded")
+}
 

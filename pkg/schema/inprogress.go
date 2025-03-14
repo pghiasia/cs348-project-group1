@@ -33,6 +33,7 @@ CREATE TABLE workedOn (
 	FOREIGN KEY (tID) REFERENCES titles(tID)
 );`
 
+
 var genres_schema = `
 CREATE TABLE genres (
 	genre VARCHAR(255),
