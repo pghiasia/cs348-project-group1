@@ -39,7 +39,7 @@ CREATE TABLE genres (
 var users_schema = `
 CREATE TABLE users(
 	uID INT PRIMARY KEY,
-	name VARCHAR(255),
+	name VARCHAR(255) NOT NULL UNIQUE,
 	DOB DATE NOT NULL,
 	language VARCHAR(255) NOT NULL,
 	password VARCHAR(255) NOT NULL,
