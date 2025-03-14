@@ -125,3 +125,36 @@ CREATE TABLE movie (
     CHECK (averageRating <= 10 AND averageRating >= 0)
 );
 `
+
+func CreateTables() {
+    db, err := sql.Open("duckdb", "./movie.db")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer db.Close()
+	dropTitles := "DROP TABLE IF EXISTS titles;"
+    dropPeople := "DROP TABLE IF EXISTS people;"
+    dropWorkedOn := "DROP TABLE IF EXISTS workedOn;"
+    dropGenres := "DROP TABLE IF EXISTS genres;"
+    dropUsers := "DROP TABLE IF EXISTS users;"
+    dropFavTitles := "DROP TABLE IF EXISTS favTitles;"
+    dropEpisodes := "DROP TABLE IF EXISTS episodes;"
+    dropSeries := "DROP TABLE IF EXISTS series;"
+    dropShort := "DROP TABLE IF EXISTS short;"
+    dropMovie := "DROP TABLE IF EXISTS movie;"
+
+    _, err = db.Exec(dropTitles + dropPeople + dropWorkedOn + dropGenres + dropUsers + dropFavTitles + dropEpisodes + dropSeries + dropShort + dropMovie)
+    if err != nil {
+        log.Fatal(err)
+    }
+    println("Pre-existing tables dropped")
+
+
+
+    _, err = db.Exec(titles_schema + people_schema + users_schema + series_schema + short_schema + 
+		movie_schema + episodes_schema + fave_titles_schema + genres_schema + workedOn_schema)
+    if err != nil {
+        log.Fatal(err)
+    }
+    println("people Relation Created")
+}
