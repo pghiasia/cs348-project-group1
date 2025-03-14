@@ -2,3 +2,13 @@ setup/postgres_data/
 **/.DS_Store
 **/*.db
 bigData/
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+lib/
+genUserData/bin/
+genUserData/pyvenv.cfg
