@@ -71,23 +71,18 @@ CREATE TABLE favTitles (
 )
 `
 
-var titles_schema = `
-CREATE TABLE titles (
+
+
+var episodes_schema = `
+CREATE TABLE episodes (
 	CHECK (rating <= 10 AND rating >= 0),
 	isAdult BOOLEAN,
-	tID VARCHAR(255) NOT NULL,
     releaseYear VARCHAR(255),
 	originalTitle VARCHAR(255),
 	averageRating DECIMAL(2,1),
 	numVotes INT,
 	runtimeMinutes INT,
 	primaryTitle VARCHAR(255),
-	PRIMARY KEY (tID),
-)`
-
-
-var episodes_schema `
-CREATE TABLE episodes (
 	tID VARCHAR(256) PRIMARY KEY,
 	episodeNumber INT,
 	seasonNumber INT,
@@ -95,28 +90,52 @@ CREATE TABLE episodes (
 )
 `
 
-var series_schema `
+var series_schema = `
 CREATE TABLE series (
+CHECK (rating <= 10 AND rating >= 0),
+	isAdult BOOLEAN,
+    releaseYear VARCHAR(255),
+	originalTitle VARCHAR(255),
+	averageRating DECIMAL(2,1),
+	numVotes INT,
+	runtimeMinutes INT,
+	primaryTitle VARCHAR(255),
 	tID VARCHAR(256) PRIMARY KEY,
 	endYear INT,
 	FOREIGN KEY (tID) REFERENCES titles(tID),
 )
 `
-var short_schema `
+var short_schema = `
 CREATE TABLE short(
+CHECK (rating <= 10 AND rating >= 0),
+	isAdult BOOLEAN,
+    releaseYear VARCHAR(255),
+	originalTitle VARCHAR(255),
+	averageRating DECIMAL(2,1),
+	numVotes INT,
+	runtimeMinutes INT,
+	primaryTitle VARCHAR(255),
 	tID VARCHAR(256) PRIMARY KEY,
 	FOREIGN KEY (tID) REFERENCES titles(tID),
 )
 `
 
-var movie_schema `
+var movie_schema = `
 CREATE TABLE movie (
+CHECK (rating <= 10 AND rating >= 0),
+	isAdult BOOLEAN,
+    releaseYear VARCHAR(255),
+	originalTitle VARCHAR(255),
+	averageRating DECIMAL(2,1),
+	numVotes INT,
+	runtimeMinutes INT,
+	primaryTitle VARCHAR(255),
 	tID VARCHAR(256) PRIMARY KEY,
 	FOREIGN KEY (tID) REFERENCES titles(tID),
 )
 `
 
-var has_episode_schema `
+var has_episode_schema = `
 CREATE TABLE hasEpisode (
 	episodeID VARCHAR(256) UNIQUE,
     seriesID VARCHAR(256),
