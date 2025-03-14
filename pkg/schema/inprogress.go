@@ -5,6 +5,11 @@ import (
 	"log"
 )
 
+var titles_schema = `
+CREATE TABLE titles (
+    tID VARCHAR(255) NOT NULL PRIMARY KEY
+);`
+
 var people_schema = `
 CREATE TABLE people (
 	pID VARCHAR(255) NOT NULL PRIMARY KEY,
@@ -30,10 +35,10 @@ CREATE TABLE workedOn (
 
 var genres_schema = `
 CREATE TABLE genres (
-	genre VARCHAR(256),
-	tID VARCHAR(256),
+	genre VARCHAR(255),
+	tID VARCHAR(255),
 	PRIMARY KEY (genre, tID),
-    FOREIGN KEY (pID) REFERENCES titles(tID),
+    FOREIGN KEY (tID) REFERENCES titles(tID),
 );`
 
 var users_schema = `
@@ -48,19 +53,19 @@ CREATE TABLE users(
 
 var fave_titles_schema = `
 CREATE TABLE favTitles (
-	tID VARCHAR(256),
-	uID VARCHAR(256),
+	uID VARCHAR(255),
+	tID VARCHAR(255),
 	ranking INT,
-	PRIMARY KEY (pID, tID),
-    FOREIGN KEY (pID) REFERENCES users(uID),
+	PRIMARY KEY (uID, tID),
+    FOREIGN KEY (uID) REFERENCES users(uID),
 	FOREIGN KEY (tID) REFERENCES titles(tID),
 );
 `
 
 var episodes_schema = `
 CREATE TABLE episodes (
-	tID VARCHAR(256) PRIMARY KEY,
-    seriesID VARCHAR(256) NOT NULL,
+	tID VARCHAR(255) PRIMARY KEY,
+    seriesID VARCHAR(255) NOT NULL,
 	isAdult BOOLEAN,
     releaseYear INT,
 	originalTitle VARCHAR(255),
@@ -70,28 +75,30 @@ CREATE TABLE episodes (
 	primaryTitle VARCHAR(255),
 	episodeNumber INT,
 	seasonNumber INT,
-	FOREIGN KEY (seriesID) REFERENCES series(tID),
+	FOREIGN KEY(seriesID) REFERENCES series(tID),
+    FOREIGN KEY(tid) REFERENCES titles(tid),
     CHECK (averageRating <= 10 AND averageRating >= 0),
 );
 `
 
 var series_schema = `
 CREATE TABLE series (
-	tID VARCHAR(256) PRIMARY KEY,
+	tID VARCHAR(255) PRIMARY KEY,
 	isAdult BOOLEAN,
     releaseYear INT,
+	endYear INT,
 	originalTitle VARCHAR(255),
 	averageRating DECIMAL(2,1),
 	numVotes INT,
 	runtimeMinutes INT,
 	primaryTitle VARCHAR(255),
-	endYear INT,
+    FOREIGN KEY(tid) REFERENCES titles(tid),
     CHECK (averageRating <= 10 AND averageRating >= 0),
 );
 `
 var short_schema = `
 CREATE TABLE short(
-	tID VARCHAR(256) PRIMARY KEY,
+	tID VARCHAR(255) PRIMARY KEY,
 	isAdult BOOLEAN,
     releaseYear INT,
 	originalTitle VARCHAR(255),
@@ -99,13 +106,14 @@ CREATE TABLE short(
 	numVotes INT,
 	runtimeMinutes INT,
 	primaryTitle VARCHAR(255),
+    FOREIGN KEY(tid) REFERENCES titles(tid),
     CHECK (averageRating <= 10 AND averageRating >= 0),
 );
 `
 
 var movie_schema = `
 CREATE TABLE movie (
-	tID VARCHAR(256) PRIMARY KEY,
+	tID VARCHAR(255) PRIMARY KEY,
 	isAdult BOOLEAN,
     releaseYear INT,
 	originalTitle VARCHAR(255),
@@ -113,6 +121,7 @@ CREATE TABLE movie (
 	numVotes INT,
 	runtimeMinutes INT,
 	primaryTitle VARCHAR(255),
+    FOREIGN KEY(tid) REFERENCES titles(tid),
     CHECK (averageRating <= 10 AND averageRating >= 0)
 );
 `
