@@ -54,7 +54,7 @@ CREATE TABLE users(
 
 var fave_titles_schema = `
 CREATE TABLE favTitles (
-	uID VARCHAR(255),
+	uID INT,
 	tID VARCHAR(255),
 	ranking INT,
 	PRIMARY KEY (uID, tID),
@@ -133,18 +133,19 @@ func CreateTables() {
         log.Fatal(err)
     }
     defer db.Close()
-	dropTitles := "DROP TABLE IF EXISTS titles;"
-    dropPeople := "DROP TABLE IF EXISTS people;"
-    dropWorkedOn := "DROP TABLE IF EXISTS workedOn;"
-    dropGenres := "DROP TABLE IF EXISTS genres;"
-    dropUsers := "DROP TABLE IF EXISTS users;"
-    dropFavTitles := "DROP TABLE IF EXISTS favTitles;"
-    dropEpisodes := "DROP TABLE IF EXISTS episodes;"
-    dropSeries := "DROP TABLE IF EXISTS series;"
+
     dropShort := "DROP TABLE IF EXISTS short;"
     dropMovie := "DROP TABLE IF EXISTS movie;"
+    dropEpisodes := "DROP TABLE IF EXISTS episodes;"
+    dropSeries := "DROP TABLE IF EXISTS series;"
+    dropFavTitles := "DROP TABLE IF EXISTS favTitles;"
+    dropGenres := "DROP TABLE IF EXISTS genres;"
+	dropTitles := "DROP TABLE IF EXISTS titles;"
+    dropWorkedOn := "DROP TABLE IF EXISTS workedOn;"
+    dropPeople := "DROP TABLE IF EXISTS people;"
+    dropUsers := "DROP TABLE IF EXISTS users;"
 
-    _, err = db.Exec(dropTitles + dropPeople + dropWorkedOn + dropGenres + dropUsers + dropFavTitles + dropEpisodes + dropSeries + dropShort + dropMovie)
+    _, err = db.Exec(dropShort + dropMovie + dropEpisodes + dropSeries + dropFavTitles + dropGenres + dropWorkedOn + dropTitles +  dropPeople + dropUsers)
     if err != nil {
         log.Fatal(err)
     }

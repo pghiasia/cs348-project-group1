@@ -5,6 +5,22 @@ import (
 	"log"
 )
 
+func LoadFavTitlesTable(basicPath string, userPath string) {
+	db, err := sql.Open("duckdb", "./movie.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	_, err = db.Exec(`INSERT INTO favTitles 
+        SELECT * FROM read_csv('?') NATURAL JOIN`, basicPath, userPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	println("Users Loaded")
+}
+
 
 func LoadUsersTable(filePath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
@@ -51,7 +67,7 @@ func LoadPeopleTable(filePath string) {
 
 	var insertion_query = `
 	INSERT INTO people
-	SELECT nconst as pID, primaryProfession, birthYear, deathYear, primaryName as name, knownForTitles
+	SELECT nconst as pID, primaryName as name, birthYear, deathYear, primaryProfession, knownForTitles
 	FROM read_csv(?, delim='\t')
 	`
 	_, err = db.Exec(insertion_query, filePath)
