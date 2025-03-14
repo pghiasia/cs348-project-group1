@@ -5,7 +5,23 @@ import (
 	"log"
 )
 
-func LoadTitlesTable() {
+
+func LoadUsersTable(filePath string) {
+	db, err := sql.Open("duckdb", "./movie.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	_, err = db.Exec(`INSERT INTO users SELECT * FROM read_csv('?')`, filePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	println("Users Loaded")
+}
+
+func LoadTitlesTable(filePath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
@@ -15,9 +31,9 @@ func LoadTitlesTable() {
 	var insertion_query = `
 	INSERT INTO titles
 	SELECT tconst as tID
-	FROM read_csv("./test-data/title.basics.tsv")
+	FROM read_csv(?, delim='\t')
 	`
-	_, err = db.Exec(insertion_query)
+	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -26,7 +42,7 @@ func LoadTitlesTable() {
 }
 
 
-func LoadPeopleTable() {
+func LoadPeopleTable(filePath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
@@ -36,9 +52,9 @@ func LoadPeopleTable() {
 	var insertion_query = `
 	INSERT INTO people
 	SELECT nconst as pID, primaryProfession, birthYear, deathYear, primaryName as name, knownForTitles
-	FROM read_csv("./test-data/name.basics.tsv")
+	FROM read_csv(?, delim='\t')
 	`
-	_, err = db.Exec(insertion_query)
+	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -46,7 +62,7 @@ func LoadPeopleTable() {
 	println("Actors Loaded")
 }
 
-func LoadEpisodesTable() {
+func LoadEpisodesTable(basicPath string, ratingsPath string, episodePath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
@@ -56,10 +72,10 @@ func LoadEpisodesTable() {
 	var insertion_query = `
 	INSERT INTO episodes
 	SELECT tconst as tID, parentTconst AS seriesID, isAdult, startYear AS releaseYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle, episodeNumber, seasonNumber
-	FROM (read_csv("./test-data/title.basics.tsv") NATURAL JOIN read_csv("./test-data/title.ratings.tsv")) NATURAL JOIN read_csv("./test-data/title.episode.tsv")
+	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
 	WHERE titleType = 'tvepisode'
 	`
-	_, err = db.Exec(insertion_query)
+	_, err = db.Exec(insertion_query, basicPath, ratingsPath, episodePath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -68,7 +84,7 @@ func LoadEpisodesTable() {
 }
 
 
-func LoadSeriesTable() {
+func LoadSeriesTable(basicPath string, ratingsPath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
@@ -78,10 +94,10 @@ func LoadSeriesTable() {
 	var insertion_query = `
 	INSERT INTO series
 	SELECT tconst as tID, isAdult, startYear AS releaseYear, endYear, originalTitle, primaryTitle, runtimeMinutes, averageRating, numVotes
-	FROM read_csv("./test-data/title.basics.tsv") NATURAL JOIN read_csv("./test-data/title.ratings.tsv")
+	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
 	WHERE titleType = 'tvseries'
 	`
-	_, err = db.Exec(insertion_query)
+	_, err = db.Exec(insertion_query, basicPath, ratingsPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -90,7 +106,7 @@ func LoadSeriesTable() {
 }
 
 
-func LoadShortTable() {
+func LoadShortTable(basicPath string, ratingsPath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
@@ -100,10 +116,10 @@ func LoadShortTable() {
 	var insertion_query = `
 	INSERT INTO short
 	SELECT tconst as tID, isAdult, startYear AS releaseYear, primaryTitle, originalTitle, runtimeMinutes, averageRating, numVotes
-	FROM read_csv("./test-data/title.basics.tsv") NATURAL JOIN read_csv("./test-data/title.ratings.tsv")
+	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
 	WHERE titleType = 'short'
 	`
-	_, err = db.Exec(insertion_query)
+	_, err = db.Exec(insertion_query, basicPath, ratingsPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -112,7 +128,7 @@ func LoadShortTable() {
 }
 
 
-func LoadMovieTable() {
+func LoadMovieTable(basicPath string, ratingsPath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
@@ -122,10 +138,10 @@ func LoadMovieTable() {
 	var insertion_query = `
 	INSERT INTO movie
 	SELECT tconst as tID, isAdult, startYear AS releaseYear, primaryTitle, originalTitle, runtimeMinutes, averageRating, numVotes
-	FROM read_csv("./test-data/title.basics.tsv") NATURAL JOIN read_csv("./test-data/title.ratings.tsv")
+	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
 	WHERE titleType = 'movie'
 	`
-	_, err = db.Exec(insertion_query)
+	_, err = db.Exec(insertion_query, basicPath, ratingsPath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -133,7 +149,7 @@ func LoadMovieTable() {
 	println("Movie titles Loaded")
 }
 
-func LoadWorkedOnTable() {
+func LoadWorkedOnTable(filePath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
@@ -143,9 +159,9 @@ func LoadWorkedOnTable() {
 	var insertion_query = `
 	INSERT INTO workedOn
 	SELECT tconst as tID, nconst as pID, job as jobTitle, ordering AS creditOrder, category, characters
-	FROM read_csv("./test-data/title.principals.tsv")
+	FROM read_csv(?, delim='\t')
 	`
-	_, err = db.Exec(insertion_query)
+	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -153,3 +169,22 @@ func LoadWorkedOnTable() {
 	println("workedOn Loaded")
 }
 
+func LoadGenresTable(filePath string) {
+    db, err := sql.Open("duckdb", "./movie.db")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer db.Close()
+
+    var insertion_query = `
+        INSERT INTO genres
+        SELECT unnest(string_split(T.genres, ',')) as genre, tconst as tID
+        FROM read_csv(?, delim='\t') as T;
+    `
+    _, err = db.Exec(insertion_query, filePath)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    println("Genres Loaded")
+}

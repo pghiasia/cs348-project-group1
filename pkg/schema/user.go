@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-var users_schema = `
+var usert_schema = `
 CREATE TABLE users (
 	uid INT NOT NULL PRIMARY KEY,
     name VARCHAR(255),
@@ -30,7 +30,7 @@ func CreateUsersTables() {
 	defer db.Close()
 
 	drop := "DROP TABLE IF EXISTS users;"
-	_, err = db.Exec(drop + users_schema)
+	_, err = db.Exec(drop + usert_schema)
 	if err != nil {
 		log.Fatal(err)
 	}
