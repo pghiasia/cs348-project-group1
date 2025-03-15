@@ -1,6 +1,6 @@
 # Milestone 2
 
-The link to the milestone 1 report can be found here: [report.pdf](https://docs.google.com/document/d/1e3PryBrJ6RT2bxPib76dL9ANRlInVWm12EVRgzta7_g/edit?usp=sharing)
+The link to the milestone 2 report can be found here: [report.pdf](https://docs.google.com/document/d/1B7Vtl7qic19OT3wTG5EU1CMJkK214ILyDAvyS6Z2oUo/edit?usp=sharing)
 
 ## Changes
 
@@ -28,6 +28,12 @@ R9: list_highest_rating_movie_in_actor(db *sql.DB)
     - finds the highest ranking movie which involved a specific actor.
 
 note: the top level features directory contains the SQL queries and outputs for functions R6, R7, R8, R9.
+
+
+## How to Generate Production Data:  
+The data was sourced from [website](https://developer.imdb.com/non-commercial-datasets/) and the download link is [here.](https://datasets.imdbws.com/)  
+Please download the listed files, unzip them using 'gunzip name.basics.tsv.gz title.basics.tsv.gz title.episode.tsv.gz title.principals.tsv.gz title.ratings.tsv.gz' on mac and replace the sample small data files with the production files in directory test-data.
+
 
 ## GUI
 
