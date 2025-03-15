@@ -35,7 +35,11 @@ func LoadTitlesTable(filePath string) {
 	var insertion_query = `
 	INSERT INTO titles
 	SELECT tconst as tID
+<<<<<<< HEAD
     FROM read_csv(?, delim='\t', nullstr='\N')
+=======
+    FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=false)
+>>>>>>> 6695c0b4f7eb627e72df41174e7eacf00726c3b7
 	`
 	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
@@ -55,7 +59,7 @@ func LoadPeopleTable(filePath string) {
 	var insertion_query = `
 	INSERT INTO people
 	SELECT nconst as pID, birthYear, deathYear, primaryName as name, knownForTitles, primaryProfession
-	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=true)
+	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=false)
 	`
 	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
@@ -75,7 +79,7 @@ func LoadEpisodesTable(basicPath string, ratingsPath string, episodePath string)
 	var insertion_query = `
 	INSERT INTO episodes
 	SELECT tconst as tID, parentTconst AS seriesID, isAdult, startYear AS releaseYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle, episodeNumber, seasonNumber
-	FROM read_csv(?, delim='\t', nullstr='\N',ignore_errors=true) AS A1 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N', ignore_errors=true) AS A2 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N', ignore_errors=true) AS A3
+	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=false) AS A1 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N', ignore_errors=false) AS A2 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N', ignore_errors=false) AS A3
 	WHERE titleType = 'tvepisode'
 	`
 	_, err = db.Exec(insertion_query, basicPath, ratingsPath, episodePath)
@@ -96,7 +100,7 @@ func LoadSeriesTable(basicPath string, ratingsPath string) {
 	var insertion_query = `
 	INSERT INTO series
 	SELECT tconst as tID, isAdult, startYear AS releaseYear, endYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle
-	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=true) AS A1 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N',ignore_errors=true) AS A2
+	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=false) AS A1 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N', ignore_errors=false) AS A2
 	WHERE titleType = 'tvseries'
 	`
 	_, err = db.Exec(insertion_query, basicPath, ratingsPath)
@@ -117,7 +121,7 @@ func LoadShortTable(basicPath string, ratingsPath string) {
 	var insertion_query = `
 	INSERT INTO short
 	SELECT tconst as tID, isAdult, startYear AS releaseYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle
-	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=true) AS A1 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N', ignore_errors=true) AS A2
+	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=false) AS A1 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N', ignore_errors=false) AS A2
 	WHERE titleType = 'short'
 	`
 	_, err = db.Exec(insertion_query, basicPath, ratingsPath)
@@ -159,7 +163,7 @@ func LoadWorkedOnTable(filePath string) {
 	var insertion_query = `
 	INSERT INTO workedOn
     SELECT nconst as pID, tconst as tID, job as jobTitle, ordering AS creditOrder, category, characters
-	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=true)
+	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=false)
 	`
 	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
@@ -179,7 +183,7 @@ func LoadGenresTable(filePath string) {
 	var insertion_query = `
         INSERT INTO genres
         SELECT unnest(string_split(T.genres, ',')) as genre, tconst as tID
-        FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=true) as T;
+        FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=false) as T;
     `
 	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
