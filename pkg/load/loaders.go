@@ -77,7 +77,7 @@ func LoadEpisodesTable(basicPath string, ratingsPath string, episodePath string)
 	var insertion_query = `
 	INSERT INTO episodes
 	SELECT tconst as tID, parentTconst AS seriesID, isAdult, startYear AS releaseYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle, episodeNumber, seasonNumber
-	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
+	FROM read_csv(?, delim='\t') AS A1 NATURAL JOIN read_csv(?, delim='\t') AS A2 NATURAL JOIN read_csv(?, delim='\t') AS A3
 	WHERE titleType = 'tvepisode'
 	`
 	_, err = db.Exec(insertion_query, basicPath, ratingsPath, episodePath)
@@ -121,7 +121,7 @@ func LoadShortTable(basicPath string, ratingsPath string) {
 	var insertion_query = `
 	INSERT INTO short
 	SELECT tconst as tID, isAdult, startYear AS releaseYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle
-	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
+	FROM read_csv(?, delim='\t') AS A1 NATURAL JOIN read_csv(?, delim='\t') AS A2
 	WHERE titleType = 'short'
 	`
 	_, err = db.Exec(insertion_query, basicPath, ratingsPath)
@@ -143,7 +143,7 @@ func LoadMovieTable(basicPath string, ratingsPath string) {
 	var insertion_query = `
 	INSERT INTO movie
 	SELECT tconst as tID, isAdult, startYear AS releaseYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle
-	FROM read_csv(?, delim='\t') NATURAL JOIN read_csv(?, delim='\t')
+	FROM read_csv(?, delim='\t') AS A1 NATURAL JOIN read_csv(?, delim='\t') AS A2
 	WHERE titleType = 'movie'
 	`
 	_, err = db.Exec(insertion_query, basicPath, ratingsPath)
