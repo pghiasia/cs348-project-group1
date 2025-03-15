@@ -19,24 +19,20 @@ The link to the milestone 2 report can be found here: [report.pdf](https://docs.
 - To start up the GUI, run `npm i` and `npm run dev` in the `/app` directory.
 - note: running the application will automatically load the data.  
 
+## How To Run The App With: Production Data and Sample Data
+- In cmd/app/main.go there are two functions, initProdDb, and initTestDb,
+  by default the database is loaded with the production database (the main function calls initProdDb), 
+  to change to sample data just replace the call to initProdDb in main to initTestDb.
+
 ## Basic Features (Implemented via function calls)
-
-Main features:  
-R6: list_highest_rating_movie(db *sql.DB)  
-    - finds the movie with the max rating.  
-R9: list_highest_rating_movie_in_actor(db *sql.DB)  
-    - finds the highest ranking movie which involved a specific actor.
-
-note: the top level features directory contains the SQL queries and outputs for functions R6, R7, R8, R9.
-
+note: the top level features directory contains the SQL queries and outputs for functions R6, R7, R8, R9, R10.
+You can learn more about these features in the report. 
 
 ## How to Generate Production Data:  
-The data was sourced from [website](https://developer.imdb.com/non-commercial-datasets/) and the download link is [here.](https://datasets.imdbws.com/)  
+The data was sourced from [website](https://developer.imdb.com/non-commercial-datasets/) and the download link is [here.](https://datasets.imdbws.com/)
 Please download the listed files, unzip them using 'gunzip name.basics.tsv.gz title.basics.tsv.gz title.episode.tsv.gz title.principals.tsv.gz title.ratings.tsv.gz' on mac and replace the sample small data files with the production files in directory test-data.
 
-
 ## GUI
-
 - Login Page implemented with user signup and signin functions, password & username verifications, and required field checks.
 ![demo-1](./assets/login-1.png)
 ![demo-2](./assets/login-2.png)
