@@ -21,3 +21,6 @@ note: the top level features directory contains the SQL queries and outputs for 
 Miscellaneous to be possibly used in the future, not part of milestone 1:
 - The `list_movie_ratings` function created in the main file implements the feature where the users query all movies with their ratings.
 - The `list_users` function created in the main file prints out all the users and their info.
+
+
+
