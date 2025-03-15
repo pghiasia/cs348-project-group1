@@ -158,8 +158,13 @@ func LoadWorkedOnTable(filePath string) {
 
 	var insertion_query = `
 	INSERT INTO workedOn
+<<<<<<< HEAD
     SELECT nconst as pID, tconst as tID, job as jobTitle, ordering AS creditOrder, category, characters
+	FROM read_csv(?, delim='\t')
+=======
+	SELECT tconst as tID, nconst as pID, job as jobTitle, ordering AS creditOrder, category, characters
 	FROM read_csv(?, delim='\t', ignore_errors=true)
+>>>>>>> cd88ee4a5ee862ffd6e6ecf4c3a614823e579389
 	`
 	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
