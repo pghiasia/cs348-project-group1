@@ -8,12 +8,20 @@ import (
 	_ "github.com/marcboeker/go-duckdb"
 )
 
-func initTestDb() {
-	//Users Table Creation & Loading
+func initProdDb() {
     schema.CreateTables()
+    load.LoadTitlesTable("./bigData/title.basics.tsv")
+    load.LoadPeopleTable("./bigData/name.basics.tsv")
+	load.LoadUsersTable("./test-data/usersProd.csv")
+    load.LoadSeriesTable("./bigData/title.basics.tsv", "./bigData/title.ratings.tsv")
+    load.LoadShortTable("./bigData/title.basics.tsv", "./bigData/title.ratings.tsv")
+    load.LoadMovieTable("./bigData/title.basics.tsv", "./bigData/title.ratings.tsv")
+    load.LoadEpisodesTable("./bigData/title.basics.tsv", "./bigData/title.ratings.tsv", "./bigData/title.episode.tsv")
+    load.LoadGenresTable("./bigData/title.basics.tsv")
+    load.LoadWorkedOnTable("./bigData/title.principals.tsv")
 }
 
-func initProdDb() {
+func initTestDb() {
     schema.CreateTables()
     load.LoadTitlesTable("./test-data/title.basics.tsv")
     load.LoadPeopleTable("./test-data/name.basics.tsv")
@@ -28,7 +36,7 @@ func initProdDb() {
 
 
 func main() {
-	initProdDb()
+	initTestDb()
 	r := web.InitRouter()
 	r.Run(":9888")
 }
