@@ -1,7 +1,7 @@
 tconst	ordering	nconst	category	job	characters
 tt0000001	1	nm0000002	self	\N	["Self"]
 tt0000002	1	nm0000002	self	\N	["Self"]
-tt0000010	1	nm0000002	self	\N	["Self"]
+tt00000010	1	nm0000002	self	\N	["Self"]
 tt0000002	2	nm0000001	director	\N	\N
 tt0000001	2	nm0000001	director	\N	\N
 tt0000003	3	nm0000003	producer	producer	\N
@@ -17,7 +17,7 @@ tt0000008	3	nm0000009	producer	producer	\N
 tt0000006	3	nm0000009	producer	producer	\N
 tt0000009	3	nm0000010	producer	producer	\N
 tt0000004	3	nm0000010	producer	producer	\N
-tt0000010	4	nm0000008	composer	\N	\N
+tt00000010	4	nm0000008	composer	\N	\N
 tt0000007	4	nm0000008	composer	\N	\N
 tt0000008	4	nm0000008	composer	\N	\N
 
