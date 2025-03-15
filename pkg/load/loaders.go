@@ -138,7 +138,7 @@ func LoadMovieTable(basicPath string, ratingsPath string) {
 	var insertion_query = `
 	INSERT INTO movie
 	SELECT tconst as tID, isAdult, startYear AS releaseYear, originalTitle, averageRating, numVotes, runtimeMinutes, primaryTitle
-	FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=true) AS A1 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N',ignore_errors=true) AS A2
+	FROM read_csv(?, delim='\t', nullstr='\N') AS A1 NATURAL JOIN read_csv(?, delim='\t', nullstr='\N') AS A2
 	WHERE titleType = 'movie'
 	`
 	_, err = db.Exec(insertion_query, basicPath, ratingsPath)
