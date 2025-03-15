@@ -28,10 +28,6 @@ The link to the milestone 2 report can be found here: [report.pdf](https://docs.
 note: the top level features directory contains the SQL queries and outputs for functions R6, R7, R8, R9, R10.
 You can learn more about these features in the report. 
 
-## How to Generate Production Data:  
-The data was sourced from [website](https://developer.imdb.com/non-commercial-datasets/) and the download link is [here.](https://datasets.imdbws.com/)
-Please download the listed files, unzip them using 'gunzip name.basics.tsv.gz title.basics.tsv.gz title.episode.tsv.gz title.principals.tsv.gz title.ratings.tsv.gz' on mac and replace the sample small data files with the production files in directory test-data.
-
 ## GUI
 - Login Page implemented with user signup and signin functions, password & username verifications, and required field checks.
 ![demo-1](./assets/login-1.png)
