@@ -1,7 +1,7 @@
 WITH GivenActor AS (
     SELECT pID
     FROM people
-    WHERE name = 'James Cagney'
+    WHERE name = 'Fred Astaire'
 ),
 FirstConnections AS (
     SELECT DISTINCT w2.pID
