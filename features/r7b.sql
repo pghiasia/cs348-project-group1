@@ -1,7 +1,7 @@
 SELECT *
 FROM
 (((((SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes
-FROM movies) 
+FROM movie) 
 UNION
 (SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes
 FROM series) 
@@ -18,4 +18,4 @@ workedOn)
 NATURAL JOIN 
 people) AS a
 
-WHERE a.name = 'Brigitte Bardot' AND a.genres LIKE '%Romance%';
+WHERE a.name = 'Brigitte Bardot' AND a.genre LIKE '%Romance%';

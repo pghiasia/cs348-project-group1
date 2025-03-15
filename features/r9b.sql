@@ -1,7 +1,7 @@
 SELECT *
 FROM
 ((((SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes
-FROM movies) 
+FROM movie) 
 UNION
 (SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes
 FROM series) 
@@ -18,4 +18,4 @@ people) AS a
 
 WHERE a.name = 'Fred Astaire'
 ORDER BY a.averageRating DESC
-LIMIT 1;
+LIMIT 20;
