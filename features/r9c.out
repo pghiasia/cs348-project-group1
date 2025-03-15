@@ -1,0 +1,29 @@
+// a.name changed to 'James Cagney'
+
+┌───────────┬─────────────────┬───┬────────────────┬──────────────────────┐
+│    tID    │  primaryTitle   │ … │ knownForTitles │  primaryProfession   │
+│  varchar  │     varchar     │   │    varchar     │       varchar        │
+├───────────┼─────────────────┼───┼────────────────┼──────────────────────┤
+│ tt0000009 │ testShort 1     │ … │ tt0000004      │ actor,director,pro…  │
+│ tt0000019 │ testShort 2     │ … │ tt0000019      │ actor,director,pro…  │
+│ tt0000031 │ testShort 2     │ … │ tt0000031      │ actor,director,pro…  │
+│ tt0000041 │ testShort 2     │ … │ tt0000041      │ actor,director,pro…  │
+│ tt0000021 │ testShort 2     │ … │ tt0000021      │ actor,director,pro…  │
+│ tt0000011 │ testShort 2     │ … │ tt0000011      │ actor,director,pro…  │
+│ tt0000015 │ testShort 2     │ … │ tt0000015      │ actor,director,pro…  │
+│ tt0000020 │ testShort 2     │ … │ tt0000020      │ actor,director,pro…  │
+│ tt0000018 │ testShort 2     │ … │ tt0000018      │ actor,director,pro…  │
+│ tt0000004 │ Poor Pierrot    │ … │ tt0000004      │ actor,director,pro…  │
+│ tt0000028 │ testShort 2     │ … │ tt0000028      │ actor,director,pro…  │
+│ tt0000034 │ testShort 2     │ … │ tt0000034      │ actor,director,pro…  │
+│ tt0000044 │ testShort 2     │ … │ tt0000044      │ actor,director,pro…  │
+│ tt0000038 │ testShort 2     │ … │ tt0000038      │ actor,director,pro…  │
+│ tt0000048 │ testtvepisode 2 │ … │ tt0000048      │ actor,director,pro…  │
+│ tt0000014 │ testShort 2     │ … │ tt0000014      │ actor,director,pro…  │
+│ tt0000024 │ testShort 2     │ … │ tt0000024      │ actor,director,pro…  │
+│ tt0000025 │ testShort 2     │ … │ tt0000025      │ actor,director,pro…  │
+│ tt0000035 │ testShort 2     │ … │ tt0000035      │ actor,director,pro…  │
+│ tt0000029 │ testShort 2     │ … │ tt0000029      │ actor,director,pro…  │
+├───────────┴─────────────────┴───┴────────────────┴──────────────────────┤
+│ 20 rows                                            18 columns (4 shown) │
+└─────────────────────────────────────────────────────────────────────────┘

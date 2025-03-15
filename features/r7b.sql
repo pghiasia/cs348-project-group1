@@ -18,4 +18,4 @@ workedOn)
 NATURAL JOIN 
 people) AS a
 
-WHERE a.name = 'Brigitte Bardot' AND a.genre LIKE '%Romance%';
+WHERE a.name = 'Fred Astaire' AND a.genre LIKE '%Romance%';
