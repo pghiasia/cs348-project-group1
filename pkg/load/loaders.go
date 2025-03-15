@@ -35,11 +35,7 @@ func LoadTitlesTable(filePath string) {
 	var insertion_query = `
 	INSERT INTO titles
 	SELECT tconst as tID
-<<<<<<< HEAD
     FROM read_csv(?, delim='\t', nullstr='\N')
-=======
-    FROM read_csv(?, delim='\t', nullstr='\N', ignore_errors=false)
->>>>>>> 6695c0b4f7eb627e72df41174e7eacf00726c3b7
 	`
 	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
