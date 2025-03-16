@@ -5,21 +5,21 @@ import (
 	"cs348-project-group1/pkg/schema"
 	"cs348-project-group1/web"
 
-	_ "github.com/marcboeker/go-duckdb"
+    _ "github.com/marcboeker/go-duckdb/v2"
 )
 
 // Initalizes the Production Database, run this to access production database. 
 func initProdDb() {
     schema.CreateTables()
-    load.LoadTitlesTable("./production-data/title.basics.tsv")
-    load.LoadPeopleTable("./production-data/name.basics.tsv")
-	load.LoadUsersTable("./production-data/usersProd.csv")
-    load.LoadSeriesTable("./production-data/title.basics.tsv", "./production-data/title.ratings.tsv")
-    load.LoadShortTable("./production-data/title.basics.tsv", "./production-data/title.ratings.tsv")
-    load.LoadMovieTable("./production-data/title.basics.tsv", "./production-data/title.ratings.tsv")
-    load.LoadEpisodesTable("./production-data/title.basics.tsv", "./production-data/title.ratings.tsv", "./production-data/title.episode.tsv")
-    load.LoadGenresTable("./production-data/title.basics.tsv")
-    load.LoadWorkedOnTable("./production-data/title.principals.tsv")
+    load.LoadTitlesTable("./bigData/title.basics.tsv")
+    load.LoadPeopleTable("./bigData/name.basics.tsv")
+	load.LoadUsersTable("./bigData/usersProd.csv")
+    load.LoadSeriesTable("./bigData/title.basics.tsv", "./bigData/title.ratings.tsv")
+    load.LoadShortTable("./bigData/title.basics.tsv", "./bigData/title.ratings.tsv")
+    load.LoadMovieTable("./bigData/title.basics.tsv", "./bigData/title.ratings.tsv")
+    load.LoadEpisodesTable("./bigData/title.basics.tsv", "./bigData/title.ratings.tsv", "./bigData/title.episode.tsv")
+    load.LoadWorkedOnTable("./bigData/title.principals.tsv")
+    load.LoadGenresTable("./bigData/title.basics.tsv")
 }
 
 // Initalizes the Test Database, run this to access sample data. 
@@ -32,8 +32,8 @@ func initTestDb() {
     load.LoadShortTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv")
     load.LoadMovieTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv")
     load.LoadEpisodesTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv", "./test-data/title.episode.tsv")
-    load.LoadGenresTable("./test-data/title.basics.tsv")
     load.LoadWorkedOnTable("./test-data/title.principals.tsv")
+    load.LoadGenresTable("./test-data/title.basics.tsv")
 }
 
 

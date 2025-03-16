@@ -7,7 +7,7 @@ import (
 
 var titles_schema = `
 CREATE TABLE titles (
-    tID VARCHAR(255) NOT NULL PRIMARY KEY
+    tID VARCHAR NOT NULL PRIMARY KEY
 );`
 
 var people_schema = `
@@ -20,15 +20,15 @@ CREATE TABLE people (
 	primaryProfession VARCHAR(255)
 );`
 
+// moved primary key constraint for efficiency reason.
 var workedOn_schema = `
 CREATE TABLE workedOn (
 	pID VARCHAR(255) NOT NULL,
 	tID VARCHAR(255) NOT NULL,
     jobTitle VARCHAR(255),
-    creditOrder INT,
-	category VARCHAR(255),
+    creditOrder INT NOT NULL,
+	category VARCHAR NOT NULL,
 	characters VARCHAR(255),
-	PRIMARY KEY (pID, tID),
 	FOREIGN KEY (pID) REFERENCES people(pID),
 	FOREIGN KEY (tID) REFERENCES titles(tID)
 );`
@@ -114,7 +114,7 @@ CREATE TABLE short(
 
 var movie_schema = `
 CREATE TABLE movie (
-	tID VARCHAR(255) PRIMARY KEY,
+	tID VARCHAR PRIMARY KEY,
 	isAdult BOOLEAN,
     releaseYear INT,
 	originalTitle VARCHAR(255),
