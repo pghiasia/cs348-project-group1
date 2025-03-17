@@ -5,6 +5,31 @@ import (
 	"log"
 )
 
+func LoadRanksTable(filePath string) {
+    db, err := sql.Open("duckdb", "./movie.db")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer db.Close()
+
+    var insertion_query = `
+        INSERT INTO ranks
+        SELECT uID, ranking, tconst AS tID FROM read_csv(?, delim='\t', nullstr='\N', quote='', escape='');
+    `
+    _, err = db.Exec(insertion_query, filePath)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    _, err = db.Exec("ALTER TABLE ranks ADD PRIMARY KEY (uID, ranking)");
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    println("Ranks Loaded")
+}
+
+
 func LoadUsersTable(filePath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {

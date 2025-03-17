@@ -20,8 +20,9 @@ CREATE TABLE people (
 	primaryProfession VARCHAR
 );`
 
-var rank_schema = `
-CREATE TABLE rank (
+// moved primary key constraint for efficiency reason.
+var ranks_schema = `
+CREATE TABLE ranks (
     uID INT NOT NULL,
     ranking INT NOT NULL,
     tID VARCHAR NOT NULL,
@@ -147,25 +148,25 @@ func CreateTables() {
     dropMovie := "DROP TABLE IF EXISTS movie;"
     dropEpisodes := "DROP TABLE IF EXISTS episodes;"
     dropSeries := "DROP TABLE IF EXISTS series;"
-    dropFavTitles := "DROP TABLE IF EXISTS favTitles;"
     dropGenres := "DROP TABLE IF EXISTS genres;"
+    dropRanks := "DROP TABLE IF EXISTS ranks;"
 	dropTitles := "DROP TABLE IF EXISTS titles;"
     dropWorkedOn := "DROP TABLE IF EXISTS workedOn;"
     dropPeople := "DROP TABLE IF EXISTS people;"
     dropUsers := "DROP TABLE IF EXISTS users;"
 
-    _, err = db.Exec(dropShort + dropMovie + dropEpisodes + dropSeries + dropFavTitles + dropGenres + dropWorkedOn + dropTitles +  dropPeople + dropUsers)
+    // This is technically not good since db.Exec is supposed to execute a single statement not multiple.
+    _, err = db.Exec(dropShort + dropMovie + dropEpisodes + dropSeries + dropRanks  + dropGenres + dropWorkedOn + dropTitles +  dropPeople + dropUsers)
     if err != nil {
         log.Fatal(err)
     }
     println("Pre-existing tables dropped")
 
 
-
     _, err = db.Exec(titles_schema + people_schema + users_schema + series_schema + short_schema + 
-		movie_schema + episodes_schema + fave_titles_schema + genres_schema + workedOn_schema)
+		movie_schema + episodes_schema + ranks_schema + genres_schema + workedOn_schema)
     if err != nil {
         log.Fatal(err)
     }
-    println("people Relation Created")
+    println("Relations Created")
 }
