@@ -6,29 +6,23 @@ import (
 )
 
 func LoadRanksTable(filePath string) {
-    db, err := sql.Open("duckdb", "./movie.db")
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer db.Close()
+	db, err := sql.Open("duckdb", "./movie.db")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
 
-    var insertion_query = `
+	var insertion_query = `
         INSERT INTO ranks
         SELECT uID, ranking, tconst AS tID FROM read_csv(?, delim='\t', nullstr='\N', quote='', escape='');
     `
-    _, err = db.Exec(insertion_query, filePath)
-    if err != nil {
-        log.Fatal(err)
-    }
+	_, err = db.Exec(insertion_query, filePath)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-    _, err = db.Exec("ALTER TABLE ranks ADD PRIMARY KEY (uID, ranking)");
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    println("Ranks Loaded")
+	println("Ranks Loaded")
 }
-
 
 func LoadUsersTable(filePath string) {
 	db, err := sql.Open("duckdb", "./movie.db")
@@ -40,8 +34,8 @@ func LoadUsersTable(filePath string) {
 	_, err = db.Exec(`
         INSERT INTO users 
         SELECT uID, name, DOB, language, password
-        FROM read_csv(?)`, 
-        filePath)
+        FROM read_csv(?)`,
+		filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -191,12 +185,12 @@ func LoadWorkedOnTable(filePath string) {
         FROM read_csv(?, delim='\t', nullstr='\N', quote='', escape='') JOIN titles ON titles.tid = tconst
         JOIN people ON people.pID = nconst;
     `
-    _, err = db.Exec(insertion_query, filePath)
+	_, err = db.Exec(insertion_query, filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
-    
-    _, err = db.Exec("ALTER TABLE workedOn ADD PRIMARY KEY (tID, creditOrder)");
+
+	_, err = db.Exec("ALTER TABLE workedOn ADD PRIMARY KEY (tID, creditOrder)")
 	if err != nil {
 		log.Fatal(err)
 	}

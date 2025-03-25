@@ -4,17 +4,6 @@ import faker
 
 fake = faker.Faker()
 
-def generate_user(seed):
-    user = {
-        'uID': fake.random_int(1, 1000),
-        'name': fake.name,
-        'DOB': fake.date_of_birth(),
-        'language': fake.language_name(),
-        'password': fake.password(length=12),
-    }
-    return user
-
-
 def random_name(seed):
     return fake.unique.user_name()
 
@@ -60,15 +49,16 @@ con.create_function(
 
 con.sql("""
 CREATE TABLE users(
-	uID INT PRIMARY KEY,
-	name VARCHAR(255) NOT NULL UNIQUE,
-	DOB DATE NOT NULL,
-	language VARCHAR(255) NOT NULL,
-	password VARCHAR(255) NOT NULL,
+	uID INT,
+	name VARCHAR,
+	DOB DATE,
+	language VARCHAR,
+	password VARCHAR,
 );
 
 INSERT INTO users
-SELECT * AS uID, random_name(uid) AS name, random_DOB(uid) AS DOB, random_language(uid) AS language, random_pswd(uid, 12) AS password FROM generate_series(1, 500);
+SELECT * AS uID, random_name(uid) AS name, random_DOB(uid) AS DOB, random_language(uid) AS language, random_pswd(uid, 12) AS password 
+FROM generate_series(1, 150_000);
 
-COPY users TO 'usersProd.csv';
+COPY users TO '../bigData/usersProd.csv';
 """)

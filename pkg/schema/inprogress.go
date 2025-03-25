@@ -20,14 +20,14 @@ CREATE TABLE people (
 	primaryProfession VARCHAR
 );`
 
-// moved primary key constraint for efficiency reason.
 var ranks_schema = `
 CREATE TABLE ranks (
     uID INT NOT NULL,
     ranking INT NOT NULL,
     tID VARCHAR NOT NULL,
     FOREIGN KEY (uID) REFERENCES users(uID),
-    FOREIGN KEY (tID) REFERENCES titles(tID)
+    FOREIGN KEY (tID) REFERENCES titles(tID),
+    PRIMARY KEY (uID, ranking)
 );`
 
 // moved primary key constraint for efficiency reason.
@@ -59,17 +59,6 @@ CREATE TABLE users(
 	DOB DATE NOT NULL,
 	language VARCHAR NOT NULL,
 	password VARCHAR NOT NULL,
-);
-`
-
-var fave_titles_schema = `
-CREATE TABLE favTitles (
-	uID INT,
-	tID VARCHAR,
-	ranking INT,
-	PRIMARY KEY (uID, tID),
-    FOREIGN KEY (uID) REFERENCES users(uID),
-	FOREIGN KEY (tID) REFERENCES titles(tID),
 );
 `
 
