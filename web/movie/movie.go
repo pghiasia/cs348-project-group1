@@ -2,6 +2,7 @@ package movie
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -45,19 +46,46 @@ func GetMovies(c *gin.Context) {
 	FROM AllTitles a
 	WHERE
 		tID is not null
-	LIMIT 20
 	`
 	genre_filter := c.Query("genre")
-	title_filter := c.Query("title_type")
+	title_filter := c.Query("titleType")
+	crew_member := c.Query("crewMember")
+	title_keyword := c.Query("titleKeyword")
+	start_year, end_year := c.Query("startYear"), c.Query("endYear")
+	low_rating, high_rating := c.Query("lowRating"), c.Query("highRating")
+	is_adult := c.Query("isAdult")
 
 	if genre_filter != "" {
-		println(genre_filter)
+		query += fmt.Sprintf("AND EXISTS (FROM genres rg SELECT 1 WHERE rg.tid = a.tID AND rg.genre = '%s')", genre_filter)
 	}
 
 	if title_filter != "" {
-		println(title_filter)
+		query += fmt.Sprintf("AND a.titleType = '%s'", title_filter)
 	}
 
+	if crew_member != "" {
+		query += fmt.Sprintf("AND EXISTS (SELECT 1 FROM workedOn w JOIN people p ON w.pID = p.pID WHERE w.tID = a.tID AND p.name = '%s')", crew_member)
+	}
+
+	if title_keyword != "" {
+		query += fmt.Sprintf("AND a.originalTitle LIKE '%%%s%%'", title_keyword)
+	}
+
+	if start_year != "" && end_year != "" {
+		query += fmt.Sprintf("AND a.releaseYear BETWEEN %s AND %s", start_year, end_year)
+	}
+
+	if low_rating != "" && high_rating != "" {
+		query += fmt.Sprintf("AND a.averageRating BETWEEN %s AND %s", low_rating, high_rating)
+	}
+
+	if is_adult == "false" {
+		query += fmt.Sprintf("AND a.isAdult = 0")
+	} else {
+		query += fmt.Sprint("AND a.isAdult = 1")
+	}
+
+	query += "LIMIT 100"
 	rows, _ := db.Query(query)
 	defer rows.Close()
 
@@ -80,6 +108,10 @@ func GetMovies(c *gin.Context) {
 		)
 		results = append(results, row)
 	}
-
+	if results == nil {
+		results = make([]RetMovie, 0)
+		c.JSON(http.StatusOK, results)
+		return
+	}
 	c.JSON(http.StatusOK, results)
 }

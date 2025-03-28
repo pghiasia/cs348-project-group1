@@ -87,7 +87,7 @@ const MovieFilters = ({
                 <em>All Genres</em>
               </MenuItem>
               {genres.sort().map((genre) => (
-                <MenuItem key={genre} value={genre.toLowerCase()}>
+                <MenuItem key={genre} value={genre}>
                   {genre}
                 </MenuItem>
               ))}
