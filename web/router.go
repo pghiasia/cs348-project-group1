@@ -17,6 +17,6 @@ func InitRouter() *gin.Engine {
 	r.POST("/user/signin", user.SignIn)
 	r.GET("/user", user.GetUser)
 	r.GET("/users", user.GetUsers)
-	r.POST("/movies", movie.GetMovies)
+	r.GET("/movies", movie.GetMovies)
 	return r
 }

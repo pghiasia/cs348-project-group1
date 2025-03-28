@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography, Chip, Box } from '@mui/material';
-import { getGenreColor, getRatingColor } from './tagColors'
+import { getTitleTypeColor, getRatingColor } from './tagColors'
 
 const MovieCard = ({ movie, onClick }) => {
   const handleMouseMove = (e) => {
@@ -20,18 +20,6 @@ const MovieCard = ({ movie, onClick }) => {
     e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
   };
 
-  const genreTags = movie.Genres.split(',').map(genre => (
-    <Chip
-      key={genre}
-      label={genre}
-      style={{
-        backgroundColor: getGenreColor(genre),
-        color: '#fff',
-        margin: '2px'
-      }}
-    />
-  ));
-
   return (
     <Card
       style={{ 
@@ -48,15 +36,23 @@ const MovieCard = ({ movie, onClick }) => {
     >
       <CardContent>
         <Box mb={2}>
-            <Typography variant="h5" style={{fontWeight: "bold"}}>{movie.Title}</Typography>
+            <Typography variant="h5" style={{fontWeight: "bold"}}>{movie.PrimaryTitle}</Typography>
         </Box>
         <Box mb={2}>
             <Typography variant="body" 
-            style={{fontWeight: "bold", color: getRatingColor(movie.Rating)}}>
-                Rating: {movie.Rating}
+            style={{fontWeight: "bold", color: getRatingColor(movie.AverageRating)}}>
+                Rating: {movie.AverageRating}
             </Typography>
         </Box>
-        <div>{genreTags}</div>
+        <Chip
+          key={movie.TitleType}
+          label={movie.TitleType}
+          style={{
+            backgroundColor: getTitleTypeColor(movie.TitleType),
+            color: '#fff',
+            margin: '2px'
+          }}
+        />
       </CardContent>
     </Card>
   );

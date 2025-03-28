@@ -1,14 +1,12 @@
-export const getGenreColor = (genre) => {
-    const genreColors = {
-        documentary: '#4169E1',
-        short: '#8e1544',
-        animation: '#0fd835',
-        comedy: '#f0682b',
-        romance: '#c236e3',
-        sport: '#B87333',   
+export const getTitleTypeColor = (titleType) => {
+    const titleColors = {
+        movie: '#4169E1',
+        series: '#8e1544',
+        short: '#0fd835',
+        episode: '#f0682b',
     };
 
-    return genreColors[genre.toLowerCase()] || '#7f7f7f'
+    return titleColors[titleType.toLowerCase()] || '#7f7f7f'
 }
 
 export const getRatingColor = (rating) => {

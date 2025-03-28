@@ -1,9 +1,7 @@
 package movie
 
 import (
-	"cs348-project-group1/pkg/schema"
 	"database/sql"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,21 +12,7 @@ type httpError struct {
 	Message    string `json:"message"`
 }
 
-type getMoviesRequest struct {
-	Sortby string `json:"sortby"`
-}
-
 func GetMovies(c *gin.Context) {
-	var requestBody getMoviesRequest
-
-	if err := c.BindJSON(&requestBody); err != nil {
-		c.JSON(http.StatusBadRequest, httpError{
-			StatusCode: http.StatusBadRequest,
-			Message:    "Invalid Request Body",
-		})
-		return
-	}
-
 	db, err := sql.Open("duckdb", "./movie.db")
 	defer db.Close()
 	if err != nil {
@@ -39,85 +23,63 @@ func GetMovies(c *gin.Context) {
 		return
 	}
 
-	query := fmt.Sprintf("SELECT mid, title, genres, release, rating, numVotes FROM movies ORDER BY %s DESC", requestBody.Sortby)
-	rows, err := db.Query(query)
+	query := `
+	WITH AllTitles AS (
+		SELECT tID, isAdult, releaseYear, originalTitle, averageRating,
+		numVotes, runtimeMinutes, primaryTitle, 'movie' AS titleType
+		FROM movie
+		UNION ALL
+		SELECT tID, isAdult, releaseYear, originalTitle, averageRating,
+		numVotes, runtimeMinutes, primaryTitle, 'series' AS titleType
+		FROM series
+		UNION ALL
+		SELECT tID, isAdult, releaseYear, originalTitle, averageRating,
+		numVotes, runtimeMinutes, primaryTitle, 'short' AS titleType
+		FROM short
+		UNION ALL
+		SELECT tID, isAdult, releaseYear, originalTitle, averageRating,
+		numVotes, runtimeMinutes, primaryTitle, 'episode' AS titleType
+		FROM episodes
+	)
+	SELECT DISTINCT a.tID, a.primaryTitle, a.releaseYear, a.averageRating, a.isAdult, a.titleType
+	FROM AllTitles a
+	WHERE
+		tID is not null
+	LIMIT 20
+	`
+	genre_filter := c.Query("genre")
+	title_filter := c.Query("title_type")
 
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, httpError{
-			StatusCode: http.StatusInternalServerError,
-			Message:    err.Error(),
-		})
-		return
+	if genre_filter != "" {
+		println(genre_filter)
 	}
+
+	if title_filter != "" {
+		println(title_filter)
+	}
+
+	rows, _ := db.Query(query)
 	defer rows.Close()
 
-	var movies []schema.Movie
+	type RetMovie struct {
+		Tid           string  `db:"tid"`
+		PrimaryTitle  string  `db:"primaryTitle"`
+		ReleaseYear   int     `db:"releaseYear"`
+		AverageRating float64 `db:"averageRating"`
+		IsAdult       bool    `db:"isAdult"`
+		TitleType     string  `db:"titleType"`
+	}
+
+	var results []RetMovie
+
 	for rows.Next() {
-		var movie schema.Movie
-		err := rows.Scan(
-			&movie.Mid, &movie.Title, &movie.Genres,
-			&movie.Release, &movie.Rating, &movie.NumVotes,
+		var row RetMovie
+		rows.Scan(
+			&row.Tid, &row.PrimaryTitle, &row.ReleaseYear,
+			&row.AverageRating, &row.IsAdult, &row.TitleType,
 		)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, httpError{
-				StatusCode: http.StatusInternalServerError,
-				Message:    err.Error(),
-			})
-			return
-		}
-		movies = append(movies, movie)
+		results = append(results, row)
 	}
 
-	c.JSON(http.StatusOK, movies)
-}
-
-func list_highest_rating_movie(db *sql.DB) {
-	println("\n\n ******** Listing Movie with Highest Rating ******** \n\n")
-
-	var q = `
-	SELECT title, rating 
-	FROM movies
-	WHERE rating = (SELECT MAX(rating) FROM movies);
-	`
-
-	movie_table := schema.Movie{}
-	row := db.QueryRow(q)
-	_ = row.Scan(&movie_table.Title, &movie_table.Rating)
-	fmt.Printf("movie %s has the highest rating of: %.2f\n", movie_table.Title, movie_table.Rating)
-}
-
-func list_highest_rating_movie_in_actor(db *sql.DB) {
-	var first_name string
-	var last_name string
-	println("\n\n ******** Listing Movie with Highest Rating with respect to an Actor.******** \n\n")
-
-	print("\n\nFirst Name: ")
-	fmt.Scanln(&first_name)
-	print("\n\nLast Name: ")
-	fmt.Scanln(&last_name)
-
-	actor := first_name + " " + last_name
-
-	fmt.Printf("\n\n ******** Listing Movie with Highest Rating with respect to %s ******** \n\n", actor)
-
-	type Output struct {
-		Title  string
-		Actor  string
-		Rating float32
-	}
-
-	var q = `
-	SELECT m.title, m.rating, a.name
-  	FROM movies m NATURAL JOIN movie_to_actor ma NATURAL JOIN actors a
-  	WHERE a.name = ?
-  	ORDER BY m.rating DESC
-  	LIMIT 1;
-	`
-
-	output := Output{}
-
-	row := db.QueryRow(q, actor)
-	_ = row.Scan(&output.Title, &output.Rating, &output.Actor)
-
-	fmt.Printf("movie %s with actor %s has the highest rating of: %.2f\n", output.Title, output.Actor, output.Rating)
+	c.JSON(http.StatusOK, results)
 }
