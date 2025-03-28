@@ -22,3 +22,5 @@ FROM ((FirstConnections fc JOIN people p ON fc.first_pID = p.pID)
     UNION
     (SELECT sc.second_pID AS actorID, 'second' AS ConnectionLevel, p.nameFROM SecondConnections sc))
     JOIN people p ON sc.second_pID = p.pID;
+
+
