@@ -47,9 +47,10 @@ const MovieCard = ({ movie, onClick }) => {
         <Chip
           key={movie.TitleType}
           label={movie.TitleType}
+          variant="outlined"
           style={{
-            backgroundColor: getTitleTypeColor(movie.TitleType),
-            color: '#fff',
+            borderColor: getTitleTypeColor(movie.TitleType),
+            color: getTitleTypeColor(movie.TitleType),
             margin: '2px'
           }}
         />

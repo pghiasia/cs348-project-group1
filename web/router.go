@@ -18,5 +18,6 @@ func InitRouter() *gin.Engine {
 	r.GET("/user", user.GetUser)
 	r.GET("/users", user.GetUsers)
 	r.GET("/movies", movie.GetMovies)
+	r.GET("/movie", movie.GetMovie)
 	return r
 }

@@ -1,25 +1,25 @@
 export const getTitleTypeColor = (titleType) => {
     const titleColors = {
-        movie: '#4169E1',
-        series: '#8e1544',
-        short: '#0fd835',
-        episode: '#f0682b',
+        movie: '#3B82F6',
+        series: '#9333EA',
+        short: '#10B981',
+        episode: '#F97316',
     };
 
-    return titleColors[titleType.toLowerCase()] || '#7f7f7f'
+    return titleColors[titleType.toLowerCase()] || '#6B7280'
 }
 
 export const getRatingColor = (rating) => {
     if (rating < 3.0) {
-        return '#899499'
+        return '#D4D4D4'
     }
     else if (rating >= 3.0 && rating < 5) {
-        return '#0047AB'
+        return '#A3A3A3'
     }
     else if (rating >= 5.0 && rating < 8) {
-        return '#008000'
+        return '#737373'
     }
     else {
-        return '#D70040'
+        return '#525252'
     }
 }

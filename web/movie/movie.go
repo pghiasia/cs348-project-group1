@@ -85,7 +85,7 @@ func GetMovies(c *gin.Context) {
 		query += fmt.Sprint("AND a.isAdult = 1")
 	}
 
-	query += "LIMIT 100"
+	query += "LIMIT 1000"
 	rows, _ := db.Query(query)
 	defer rows.Close()
 
@@ -113,5 +113,52 @@ func GetMovies(c *gin.Context) {
 		c.JSON(http.StatusOK, results)
 		return
 	}
+	c.JSON(http.StatusOK, results)
+}
+
+func GetMovie(c *gin.Context) {
+	db, err := sql.Open("duckdb", "./movie.db")
+	defer db.Close()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, httpError{
+			StatusCode: http.StatusInternalServerError,
+			Message:    err.Error(),
+		})
+		return
+	}
+
+	tid := c.Query("tid")
+
+	type RetMovie struct {
+		Genres []string
+		Crew   []string
+	}
+
+	var genres []string
+	var crew []string
+
+	g_query := fmt.Sprintf("SELECT genre FROM genres WHERE tid = '%s'", tid)
+	c_query := fmt.Sprintf("SELECT name FROM workedOn w JOIN people p ON w.pID = p.pID WHERE w.tID = '%s'", tid)
+
+	rows, _ := db.Query(g_query)
+	for rows.Next() {
+		var gname string
+		rows.Scan(&gname)
+		genres = append(genres, gname)
+	}
+
+	rows, _ = db.Query(c_query)
+	for rows.Next() {
+		var cname string
+		rows.Scan(&cname)
+		crew = append(crew, cname)
+	}
+
+	defer rows.Close()
+	results := RetMovie{
+		Genres: genres,
+		Crew:   crew,
+	}
+
 	c.JSON(http.StatusOK, results)
 }
