@@ -1,0 +1,9 @@
+// a.name changed to 'James Cagney'
+
+┌────────────────┐
+│      name      │
+│    varchar     │
+├────────────────┤
+│ John Belushi   │
+│ Ingmar Bergman │
+└────────────────┘

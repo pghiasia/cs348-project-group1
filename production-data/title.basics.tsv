@@ -1,0 +1,51 @@
+tconst	titleType	primaryTitle	originalTitle	isAdult	startYear	endYear	runtimeMinutes	genres
+tt0000001	short	Carmencita	Carmencita	0	1894	0	1	Documentary,Short
+tt0000002	short	Le clown et ses chiens	Le clown et ses chiens	0	1892	0	5	Animation,Short
+tt0000003	tvseries	Poor Pierrot	Pauvre Pierrot	0	1892	0	5	Animation,Comedy,Romance
+tt0000004	tvepisode	Poor Pierrot	Pauvre Pierrot	0	1892	0	5	Animation,Comedy,Romance
+tt0000005	tvepisode	Poor Pierrot	Pauvre Pierrot	0	1892	0	5	Animation,Comedy,Romance
+tt0000006	short	Edison Kinetoscopic Record of a Sneeze	Edison Kinetoscopic Record of a Sneeze	0	1894	\N	1	Documentary,Short
+tt0000007	movie	Miss Jerry	Miss Jerry	0	1894	0	45	Romance
+tt0000008	short	Leaving the Factory	La sortie de l'usine Lumière à Lyon	0	1895	\N	1	Documentary,Short
+tt0000009	short	testShort 1	the one and only testShort 1	0	1895	0	1	Documentary,Short
+tt0000010	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000011	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000012	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000013	movie	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000014	movie	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000015	movie	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000016	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000017	movie	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000018	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000019	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000020	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000021	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000022	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000023	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000024	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000025	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000026	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000027	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000028	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000029	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000030	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000031	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000032	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000033	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000034	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000035	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000036	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000037	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000038	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000039	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000040	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000041	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000042	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000043	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000044	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000045	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000046	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000047	short	testShort 2	the one and only testShort 2	0	1895	0	1	Documentary,Short
+tt0000048	tvepisode	testtvepisode 2	the one and only testtvepisode 2	0	1895	0	1	Documentary,Short
+tt0000049	tvepisode	testtvepisode 2	the one and only testtvepisode 2	0	1895	0	1	Documentary,Short
+tt0000050	tvepisode	testtvepisode 2	the one and only testtvepisode 2	0	1895	0	1	Documentary,Short
