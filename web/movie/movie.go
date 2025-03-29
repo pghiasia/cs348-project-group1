@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,6 +12,11 @@ import (
 type httpError struct {
 	StatusCode int    `json:"status_code"`
 	Message    string `json:"message"`
+}
+
+type updateRatingRequest struct {
+	Tid    string  `json:"tid"`
+	Rating float64 `json:"rating"`
 }
 
 func GetMovies(c *gin.Context) {
@@ -161,4 +167,41 @@ func GetMovie(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, results)
+}
+
+func UpdateRating(c *gin.Context) {
+	var requestBody updateRatingRequest
+
+	if err := c.BindJSON(&requestBody); err != nil {
+		c.JSON(http.StatusBadRequest, httpError{
+			StatusCode: http.StatusBadRequest,
+			Message:    "Invalid Request Body",
+		})
+		return
+	}
+
+	db, err := sql.Open("duckdb", "./movie.db")
+	defer db.Close()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, httpError{
+			StatusCode: http.StatusInternalServerError,
+			Message:    err.Error(),
+		})
+		return
+	}
+
+	rating_string := strconv.FormatFloat(requestBody.Rating, 'f', -1, 64)
+	update_movie_query := fmt.Sprintf("UPDATE movie SET numVotes = numVotes + 1, averageRating = ((averageRating * (numVotes - 1)) + %s) / numVotes WHERE tID = '%s'", rating_string, requestBody.Tid)
+	db.Exec(update_movie_query)
+
+	update_short_query := fmt.Sprintf("UPDATE short SET numVotes = numVotes + 1, averageRating = ((averageRating * (numVotes - 1)) + %s) / numVotes WHERE tID = '%s'", rating_string, requestBody.Tid)
+	db.Exec(update_short_query)
+
+	update_series_query := fmt.Sprintf("UPDATE series SET numVotes = numVotes + 1, averageRating = ((averageRating * (numVotes - 1)) + %s) / numVotes WHERE tID =  '%s'", rating_string, requestBody.Tid)
+	db.Exec(update_series_query)
+
+	update_episode_query := fmt.Sprintf("UPDATE episodes SET numVotes = numVotes + 1, averageRating = ((averageRating * (numVotes - 1)) + %s) / numVotes WHERE tID =  '%s'", rating_string, requestBody.Tid)
+	db.Exec(update_episode_query)
+
+	c.JSON(http.StatusOK, "rating updated")
 }

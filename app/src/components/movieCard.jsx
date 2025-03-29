@@ -20,6 +20,8 @@ const MovieCard = ({ movie, onClick }) => {
     e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
   };
 
+  const formattedRating = Number(movie.AverageRating).toFixed(2);
+
   return (
     <Card
       style={{ 
@@ -41,7 +43,7 @@ const MovieCard = ({ movie, onClick }) => {
         <Box mb={2}>
             <Typography variant="body" 
             style={{fontWeight: "bold", color: getRatingColor(movie.AverageRating)}}>
-                Rating: {movie.AverageRating}
+                Rating: {formattedRating}
             </Typography>
         </Box>
         <Chip
