@@ -205,3 +205,68 @@ func UpdateRating(c *gin.Context) {
 
 	c.JSON(http.StatusOK, "rating updated")
 }
+
+func GetHighestMovieActor(c *gin.Context) {
+	db, err := sql.Open("duckdb", "./movie.db")
+	defer db.Close()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, httpError{
+			StatusCode: http.StatusInternalServerError,
+			Message:    err.Error(),
+		})
+		return
+	}
+
+	actor_name := c.Query("actor")
+
+	query_base := `
+	SELECT DISTINCT a.tID, a.primaryTitle, a.releaseYear, a.averageRating, a.isAdult, a.titleType
+	FROM
+	((((SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes, 'movie' AS titleType
+	FROM movie) 
+	UNION
+	(SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes, 'series' AS titleType
+	FROM series) 
+	UNION
+	(SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes, 'short' AS titleType
+	FROM short)
+	UNION
+	(SELECT tID, primaryTitle, OriginalTitle, isAdult, releaseYear, averageRating, numVotes, runtimeMinutes, 'episode' AS titleType
+	FROM episodes))
+	NATURAL JOIN 
+	workedOn)
+	NATURAL JOIN 
+	people) AS a
+	`
+
+	query := query_base + fmt.Sprintf("WHERE a.name = '%s' ORDER BY a.averageRating DESC LIMIT 20", actor_name)
+
+	rows, _ := db.Query(query)
+	defer rows.Close()
+
+	type RetMovie struct {
+		Tid           string  `db:"tid"`
+		PrimaryTitle  string  `db:"primaryTitle"`
+		ReleaseYear   int     `db:"releaseYear"`
+		AverageRating float64 `db:"averageRating"`
+		IsAdult       bool    `db:"isAdult"`
+		TitleType     string  `db:"titleType"`
+	}
+
+	var results []RetMovie
+
+	for rows.Next() {
+		var row RetMovie
+		rows.Scan(
+			&row.Tid, &row.PrimaryTitle, &row.ReleaseYear,
+			&row.AverageRating, &row.IsAdult, &row.TitleType,
+		)
+		results = append(results, row)
+	}
+	if results == nil {
+		results = make([]RetMovie, 0)
+		c.JSON(http.StatusOK, results)
+		return
+	}
+	c.JSON(http.StatusOK, results)
+}

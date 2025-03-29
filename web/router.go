@@ -20,5 +20,6 @@ func InitRouter() *gin.Engine {
 	r.GET("/movies", movie.GetMovies)
 	r.GET("/movie", movie.GetMovie)
 	r.POST("/rating", movie.UpdateRating)
+	r.GET("/highestRatingWithActor", movie.GetHighestMovieActor)
 	return r
 }

@@ -9,15 +9,17 @@ import {
 import MovieCard from '../components/movieCard';
 import MovieModal from '../components/movieModal';
 import MovieFilters from '../components/movieFilter';
+import MovieActorFilter from '../components/movieActorFilter';
 
 const Movie = () => { 
+  //base states
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   
-  // New state for dropdowns and search
+  //filter states
   const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedTitleType, setSelectedTitleType] = useState('');
   const [crewMember, setCrewMember] = useState('');
@@ -27,6 +29,10 @@ const Movie = () => {
   const [lowRating, setLowRating] = useState(null);
   const [highRating, setHighRating] = useState(null);
   const [isAdultContentIncluded, setIsAdultContentIncluded] = useState(false);
+  
+  //actor filter states
+  const [actorName, setActorName] = useState('');
+  const [isActorFilterActive, setIsActorFilterActive] = useState(false);
 
   const fetchMovies = async () => {
     try {
@@ -68,8 +74,40 @@ const Movie = () => {
     }
   }
 
+  const fetchMoviesByActor = async (actorNameToSearch) => {
+    if (!actorNameToSearch.trim()) return;
+    
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      const actorResponse = await fetch(`http://localhost:9888/highestRatingWithActor?actor=${actorNameToSearch.trim()}`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      if (!actorResponse.ok) {
+        throw new Error('Fetch movies by actor failed');
+      }
+      
+      const actorData = await actorResponse.json();
+      setMovies(actorData);
+    }
+    catch (error) {
+      console.error(error);
+      setError('Failed to load movies. Please try again.');
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
-    fetchMovies();
+    if (!isActorFilterActive) {
+      fetchMovies();
+    }
   }, [
     selectedGenre, 
     selectedTitleType, 
@@ -79,7 +117,8 @@ const Movie = () => {
     endYear, 
     lowRating, 
     highRating,
-    isAdultContentIncluded
+    isAdultContentIncluded,
+    isActorFilterActive
   ]);
 
   const handleOpen = (movie) => {
@@ -94,32 +133,50 @@ const Movie = () => {
 
   const handleGenreChange = (genre) => {
     setSelectedGenre(genre);
+    setIsActorFilterActive(false);
   };
 
   const handleTitleTypeChange = (titleType) => {
     setSelectedTitleType(titleType);
+    setIsActorFilterActive(false);
   };
 
   const handleCrewSearch = (crew) => {
     setCrewMember(crew);
+    setIsActorFilterActive(false);
   };
 
   const handleTitleKeywordSearch = (keyword) => {
     setTitleKeyword(keyword);
+    setIsActorFilterActive(false);
   };
 
   const handleYearRangeChange = ({ startYear, endYear }) => {
     setStartYear(startYear);
     setEndYear(endYear);
+    setIsActorFilterActive(false);
   };
 
   const handleRatingRangeChange = ({ lowRating, highRating }) => {
     setLowRating(lowRating);
     setHighRating(highRating);
+    setIsActorFilterActive(false);
   };
 
   const handleAdultContentChange = (isIncluded) => {
     setIsAdultContentIncluded(isIncluded);
+    setIsActorFilterActive(false);
+  };
+
+  const handleActorSearch = (name) => {
+    fetchMoviesByActor(name);
+    setActorName(name);
+    setIsActorFilterActive(true);
+  };
+
+  const clearActorFilter = () => {
+    setActorName('');
+    setIsActorFilterActive(false);
   };
 
   const renderContent = () => {
@@ -175,6 +232,13 @@ const Movie = () => {
         selectedGenre={selectedGenre}
         selectedTitleType={selectedTitleType}
         isAdultContentIncluded={isAdultContentIncluded}
+      />
+
+      <MovieActorFilter 
+        onActorSearch={handleActorSearch}
+        onClearActorFilter={clearActorFilter}
+        isActorFilterActive={isActorFilterActive}
+        actorName={actorName}
       />
 
       {renderContent()}
