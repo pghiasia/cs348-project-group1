@@ -1,0 +1,21 @@
+┌──────────────────────┬─────────────────────┬───────┬──────────────────────┬──────────────────────────────────────────┐
+│ last_connection_name │ last_connection_pID │ depth │         path         │                name_path                 │
+│       varchar        │       varchar       │ int32 │       varchar        │                 varchar                  │
+├──────────────────────┼─────────────────────┼───────┼──────────────────────┼──────────────────────────────────────────┤
+│ Fred Astaire         │ nm0000001           │     0 │ nm0000001            │ Fred Astaire                             │
+│ Ingrid Bergman       │ nm0000006           │     1 │ nm0000001->nm0000006 │ Fred Astaire->Ingrid Bergman             │
+│ Lauren Bacall        │ nm0000002           │     1 │ nm0000001->nm0000002 │ Fred Astaire->Lauren Bacall              │
+│ Marlon Brando        │ nm0000008           │     2 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
+│ Ingrid Bergman       │ nm0000006           │     2 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Ingrid Be…  │
+│ Lauren Bacall        │ nm0000002           │     2 │ nm0000001->nm00000…  │ Fred Astaire->Ingrid Bergman->Lauren B…  │
+│ Richard Burton       │ nm0000009           │     3 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
+│ Marlon Brando        │ nm0000008           │     3 │ nm0000001->nm00000…  │ Fred Astaire->Ingrid Bergman->Lauren B…  │
+│ Humphrey Bogart      │ nm0000007           │     3 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
+│ Ingmar Bergman       │ nm0000005           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
+│ Richard Burton       │ nm0000009           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
+│ Richard Burton       │ nm0000009           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Ingrid Bergman->Lauren B…  │
+│ Humphrey Bogart      │ nm0000007           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Ingrid Bergman->Lauren B…  │
+│ Humphrey Bogart      │ nm0000007           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
+├──────────────────────┴─────────────────────┴───────┴──────────────────────┴──────────────────────────────────────────┤
+│ 14 rows                                                                                                    5 columns │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
