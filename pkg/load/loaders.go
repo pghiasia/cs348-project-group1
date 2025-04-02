@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-func LoadRanksTable(filePath string) {
+func LoadRanksTable() {
 	db, err := sql.Open("duckdb", "./movie.db")
 	if err != nil {
 		log.Fatal(err)
@@ -13,10 +13,16 @@ func LoadRanksTable(filePath string) {
 	defer db.Close()
 
 	var insertion_query = `
+        WITH shuffTitles AS (
+            SELECT * FROM titles ORDER BY RANDOM()
+        )
+
         INSERT INTO ranks
-        SELECT uID, ranking, tconst AS tID FROM read_csv(?, delim='\t', nullstr='\N', quote='', escape='');
+        SELECT uID, generate_series AS ranking, tID 
+        FROM shuffTitles POSITIONAL JOIN (SELECT * FROM users, generate_series(1, 10) USING SAMPLE 50%) 
+        WHERE uid IS NOT NULL AND tid IS NOT NUll;
     `
-	_, err = db.Exec(insertion_query, filePath)
+	_, err = db.Exec(insertion_query)
 	if err != nil {
 		log.Fatal(err)
 	}

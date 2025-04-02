@@ -20,6 +20,7 @@ func initProdDb() {
 	load.LoadEpisodesTable("./bigData/title.basics.tsv", "./bigData/title.ratings.tsv", "./bigData/title.episode.tsv")
 	load.LoadWorkedOnTable("./bigData/title.principals.tsv")
 	load.LoadGenresTable("./bigData/title.basics.tsv")
+    load.LoadRanksTable();
 }
 
 // Initalizes the Test Database, run this to access sample data.
@@ -34,10 +35,11 @@ func initTestDb() {
 	load.LoadEpisodesTable("./test-data/title.basics.tsv", "./test-data/title.ratings.tsv", "./test-data/title.episode.tsv")
 	load.LoadWorkedOnTable("./test-data/title.principals.tsv")
 	load.LoadGenresTable("./test-data/title.basics.tsv")
+    load.LoadRanksTable();
 }
 
 func main() {
-	initProdDb()
+//	initProdDb()
 	r := web.InitRouter()
 	r.Run(":9888")
 }
