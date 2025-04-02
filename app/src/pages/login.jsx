@@ -152,7 +152,7 @@ function Login() {
             helperText={signupErrorDesc}
           />
           <TextField
-            label="Date of Birth"
+            label="Date of Birth (YYYY-MM-DD)"
             variant="filled"
             placeholder="Enter DOB here.."
             value={dob}
