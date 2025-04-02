@@ -1,21 +1,50 @@
-┌──────────────────────┬─────────────────────┬───────┬──────────────────────┬──────────────────────────────────────────┐
-│ last_connection_name │ last_connection_pID │ depth │         path         │                name_path                 │
-│       varchar        │       varchar       │ int32 │       varchar        │                 varchar                  │
-├──────────────────────┼─────────────────────┼───────┼──────────────────────┼──────────────────────────────────────────┤
-│ Fred Astaire         │ nm0000001           │     0 │ nm0000001            │ Fred Astaire                             │
-│ Ingrid Bergman       │ nm0000006           │     1 │ nm0000001->nm0000006 │ Fred Astaire->Ingrid Bergman             │
-│ Lauren Bacall        │ nm0000002           │     1 │ nm0000001->nm0000002 │ Fred Astaire->Lauren Bacall              │
-│ Marlon Brando        │ nm0000008           │     2 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
-│ Ingrid Bergman       │ nm0000006           │     2 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Ingrid Be…  │
-│ Lauren Bacall        │ nm0000002           │     2 │ nm0000001->nm00000…  │ Fred Astaire->Ingrid Bergman->Lauren B…  │
-│ Richard Burton       │ nm0000009           │     3 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
-│ Marlon Brando        │ nm0000008           │     3 │ nm0000001->nm00000…  │ Fred Astaire->Ingrid Bergman->Lauren B…  │
-│ Humphrey Bogart      │ nm0000007           │     3 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
-│ Ingmar Bergman       │ nm0000005           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
-│ Richard Burton       │ nm0000009           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
-│ Richard Burton       │ nm0000009           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Ingrid Bergman->Lauren B…  │
-│ Humphrey Bogart      │ nm0000007           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Ingrid Bergman->Lauren B…  │
-│ Humphrey Bogart      │ nm0000007           │     4 │ nm0000001->nm00000…  │ Fred Astaire->Lauren Bacall->Marlon Br…  │
-├──────────────────────┴─────────────────────┴───────┴──────────────────────┴──────────────────────────────────────────┤
-│ 14 rows                                                                                                    5 columns │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────┬─────────────────────────┐
+│       anc       │           des           │
+│     varchar     │         varchar         │
+├─────────────────┼─────────────────────────┤
+│ Fred Astaire    │ Bill Giorgio            │
+│ Fred Astaire    │ Jerry Murad             │
+│ Fred Astaire    │ Richard Eastham         │
+│ Fred Astaire    │ Robert B. Sinclair      │
+│ Fred Astaire    │ Gene Rayburn            │
+│ Fred Astaire    │ Richard Harkness        │
+│ Fred Astaire    │ Tommy Steele            │
+│ Fred Astaire    │ William Beaudine        │
+│ Fred Astaire    │ Anne Genevaux           │
+│ Fred Astaire    │ Betsy Blair             │
+│ Fred Astaire    │ Ferdinand Munier        │
+│ Fred Astaire    │ Richard Angarola        │
+│ Fred Astaire    │ Cecilia Todeschini      │
+│ Fred Astaire    │ Julie Wilson            │
+│ Fred Astaire    │ Don Costa               │
+│ Fred Astaire    │ Betty Furness           │
+│ Fred Astaire    │ Roman Bohnen            │
+│ Fred Astaire    │ Robert Taylor           │
+│ Fred Astaire    │ Wolf Mankowitz          │
+│ Fred Astaire    │ Oliver McGowan          │
+│      ·          │       ·                 │
+│      ·          │       ·                 │
+│      ·          │       ·                 │
+│ David Baddiel   │ Rickie Haywood-Williams │
+│ Cary Grant      │ Christopher Guyon       │
+│ Brigitte Bardot │ Jean-Philippe Audin     │
+│ Elvis Presley   │ Jeff Freeman            │
+│ Dwight Hemion   │ James Galway            │
+│ Barbara Bush    │ Vic Damone              │
+│ Regis Philbin   │ Joyce Brothers          │
+│ Jeff Sotzing    │ 'Weird Al' Yankovic     │
+│ Novak Djokovic  │ Emily Morgan            │
+│ Larry Blyden    │ Carl Reiner             │
+│ John Harlan     │ John Erman              │
+│ George W. Bush  │ John Milton Cooper      │
+│ Joan Collins    │ John S. Abbott Jr.      │
+│ Joel Gallen     │ Louis Del Grande        │
+│ Jack Warden     │ Gladys Thornton         │
+│ Gavin MacLeod   │ Ken Welch               │
+│ Blanche Baker   │ Gabriella Malm          │
+│ Blanche Baker   │ Helora Danna            │
+│ Roy Rogers      │ Charles L. Barbee       │
+│ Grant Denyer    │ Andrew Flemming         │
+├─────────────────┴─────────────────────────┤
+│ 2888686 rows (40 shown)         2 columns │
+└───────────────────────────────────────────┘

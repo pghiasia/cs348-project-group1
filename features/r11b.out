@@ -1,0 +1,12 @@
+┌────────────────┬────────────────┐
+│      anc       │      des       │
+│    varchar     │    varchar     │
+├────────────────┼────────────────┤
+│ Lauren Bacall  │ Marlon Brando  │
+│ Fred Astaire   │ Lauren Bacall  │
+│ Fred Astaire   │ Ingrid Bergman │
+│ Lauren Bacall  │ Fred Astaire   │
+│ Lauren Bacall  │ Ingrid Bergman │
+│ Ingrid Bergman │ Fred Astaire   │
+│ Ingrid Bergman │ Lauren Bacall  │
+└────────────────┴────────────────┘
