@@ -51,7 +51,7 @@ func GetMovies(c *gin.Context) {
 	SELECT DISTINCT a.tID, a.primaryTitle, a.releaseYear, a.averageRating, a.isAdult, a.titleType
 	FROM AllTitles a
 	WHERE
-		tID is not null
+		tID is not null AND averageRating is not null
 	`
 	genre_filter := c.Query("genre")
 	title_filter := c.Query("titleType")
@@ -239,7 +239,7 @@ func GetHighestMovieActor(c *gin.Context) {
 	people) AS a
 	`
 
-	query := query_base + fmt.Sprintf("WHERE a.name = '%s' ORDER BY a.averageRating DESC LIMIT 20", actor_name)
+	query := query_base + fmt.Sprintf("WHERE a.name = '%s' AND a.averageRating is not null ORDER BY a.averageRating DESC LIMIT 20", actor_name)
 
 	rows, _ := db.Query(query)
 	defer rows.Close()
