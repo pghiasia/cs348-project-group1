@@ -1,11 +1,24 @@
-WITH GivenActor AS (
-    SELECT pID
-    FROM people
-    WHERE name = 'Fred Astaire'
-),
-FirstConnections AS (
-    SELECT DISTINCT w2.pID
-    FROM workedOn w1 JOIN workedOn w2 ON w1.tID = w2.tID
-    WHERE w1.pID IN (SELECT pID FROM GivenActor) AND w2.pID NOT IN (SELECT pID FROM GivenActor)
-)
-SELECT name FROM FirstConnections NATURAL JOIN people;
+-- User Signup.
+-- Assume the user we are signing up is called hahafhaha.
+
+-- Check if user exist.
+SELECT EXISTS(SELECT * FROM users WHERE name = 'r10b-user') as user_exists;
+
+-- Get new user id and sign up, here we assign a random user_id but in production in would be an incremental new user id.
+SELECT COUNT(*) as new_id FROM users;
+
+INSERT INTO users(uid, name, dob, password, language) VALUES (
+    54321, 
+    'r10b-user', 
+    '2000-01-01', 
+    'random', 
+    'English');
+
+-- Check new user
+SELECT * FROM users WHERE name = 'r10b-user';
+
+-- User login with right password
+SELECT EXISTS(SELECT * FROM users WHERE name = 'r10b-user' AND password = 'random') AS authenticated;
+
+-- User login with wrong password
+SELECT EXISTS(SELECT * FROM users WHERE name = 'r10b-user' AND password = 'random123') AS authenticated;
