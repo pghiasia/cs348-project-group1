@@ -39,7 +39,7 @@ func initTestDb() {
 }
 
 func main() {
-//	initProdDb()
+//    initProdDb()
     initTestDb()
 	r := web.InitRouter()
 	r.Run(":9888")

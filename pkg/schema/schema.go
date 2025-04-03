@@ -234,7 +234,7 @@ func CreateTables() {
 	dropUsers := "DROP TABLE IF EXISTS users;"
 
 	// This is technically not good since db.Exec is supposed to execute a single statement not multiple.
-	_, err = db.Exec(dropShort + dropMovie + dropEpisodes + dropSeries + dropRanks + dropGenres + dropWorkedOn + dropTitles + dropPeople + dropUsers)
+    _, err = db.Exec("BEGIN TRANSACTION;" + dropShort + dropMovie + dropEpisodes + dropSeries + dropRanks + dropGenres + dropWorkedOn + dropTitles + dropPeople + dropUsers + "COMMIT TRANSACTION;")
 	if err != nil {
 		log.Fatal(err)
 	}
