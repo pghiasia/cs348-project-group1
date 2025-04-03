@@ -1,49 +1,16 @@
-// Here we changed a.name = 'James Cagney' and to search for a.genre LIKE '%Short%'
-
-
-┌───────────┬─────────────────┬───┬────────────────┬──────────────────────┐
-│    tID    │  primaryTitle   │ … │ knownForTitles │  primaryProfession   │
-│  varchar  │     varchar     │   │    varchar     │       varchar        │
-├───────────┼─────────────────┼───┼────────────────┼──────────────────────┤
-│ tt0000022 │ testShort 2     │ … │ tt0000022      │ actor,director,pro…  │
-│ tt0000027 │ testShort 2     │ … │ tt0000027      │ actor,director,pro…  │
-│ tt0000028 │ testShort 2     │ … │ tt0000028      │ actor,director,pro…  │
-│ tt0000031 │ testShort 2     │ … │ tt0000031      │ actor,director,pro…  │
-│ tt0000034 │ testShort 2     │ … │ tt0000034      │ actor,director,pro…  │
-│ tt0000041 │ testShort 2     │ … │ tt0000041      │ actor,director,pro…  │
-│ tt0000044 │ testShort 2     │ … │ tt0000044      │ actor,director,pro…  │
-│ tt0000017 │ testShort 2     │ … │ tt0000017      │ actor,director,pro…  │
-│ tt0000011 │ testShort 2     │ … │ tt0000011      │ actor,director,pro…  │
-│ tt0000023 │ testShort 2     │ … │ tt0000023      │ actor,director,pro…  │
-│ tt0000024 │ testShort 2     │ … │ tt0000024      │ actor,director,pro…  │
-│ tt0000025 │ testShort 2     │ … │ tt0000025      │ actor,director,pro…  │
-│ tt0000036 │ testShort 2     │ … │ tt0000036      │ actor,director,pro…  │
-│ tt0000039 │ testShort 2     │ … │ tt0000039      │ actor,director,pro…  │
-│ tt0000048 │ testtvepisode 2 │ … │ tt0000048      │ actor,director,pro…  │
-│ tt0000049 │ testtvepisode 2 │ … │ tt0000049      │ actor,director,pro…  │
-│ tt0000021 │ testShort 2     │ … │ tt0000021      │ actor,director,pro…  │
-│ tt0000037 │ testShort 2     │ … │ tt0000037      │ actor,director,pro…  │
-│ tt0000040 │ testShort 2     │ … │ tt0000040      │ actor,director,pro…  │
-│ tt0000046 │ testShort 2     │ … │ tt0000046      │ actor,director,pro…  │
-│ tt0000047 │ testShort 2     │ … │ tt0000047      │ actor,director,pro…  │
-│ tt0000009 │ testShort 1     │ … │ tt0000004      │ actor,director,pro…  │
-│ tt0000018 │ testShort 2     │ … │ tt0000018      │ actor,director,pro…  │
-│ tt0000029 │ testShort 2     │ … │ tt0000029      │ actor,director,pro…  │
-│ tt0000032 │ testShort 2     │ … │ tt0000032      │ actor,director,pro…  │
-│ tt0000013 │ testShort 2     │ … │ tt0000013      │ actor,director,pro…  │
-│ tt0000043 │ testShort 2     │ … │ tt0000043      │ actor,director,pro…  │
-│ tt0000014 │ testShort 2     │ … │ tt0000014      │ actor,director,pro…  │
-│ tt0000015 │ testShort 2     │ … │ tt0000015      │ actor,director,pro…  │
-│ tt0000016 │ testShort 2     │ … │ tt0000016      │ actor,director,pro…  │
-│ tt0000019 │ testShort 2     │ … │ tt0000019      │ actor,director,pro…  │
-│ tt0000020 │ testShort 2     │ … │ tt0000020      │ actor,director,pro…  │
-│ tt0000026 │ testShort 2     │ … │ tt0000026      │ actor,director,pro…  │
-│ tt0000033 │ testShort 2     │ … │ tt0000033      │ actor,director,pro…  │
-│ tt0000038 │ testShort 2     │ … │ tt0000038      │ actor,director,pro…  │
-│ tt0000012 │ testShort 2     │ … │ tt0000012      │ actor,director,pro…  │
-│ tt0000035 │ testShort 2     │ … │ tt0000035      │ actor,director,pro…  │
-│ tt0000042 │ testShort 2     │ … │ tt0000042      │ actor,director,pro…  │
-│ tt0000030 │ testShort 2     │ … │ tt0000030      │ actor,director,pro…  │
-├───────────┴─────────────────┴───┴────────────────┴──────────────────────┤
-│ 39 rows                                            19 columns (4 shown) │
-└─────────────────────────────────────────────────────────────────────────┘
+┌─────────────┐
+│    genre    │
+│   varchar   │
+├─────────────┤
+│ Documentary │
+│ Short       │
+└─────────────┘
+┌──────────────────────┐
+│         name         │
+│       varchar        │
+├──────────────────────┤
+│ Carmencita           │
+│ William K.L. Dickson │
+│ William K.L. Dickson │
+│ William Heise        │
+└──────────────────────┘

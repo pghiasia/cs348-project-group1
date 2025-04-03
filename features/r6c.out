@@ -1,0 +1,10 @@
+┌───────────┬─────────────────────────────────┬─────────────┬───────────────┬─────────┬───────────┐
+│    tID    │          primaryTitle           │ releaseYear │ averageRating │ isAdult │ titleType │
+│  varchar  │             varchar             │    int32    │    double     │ boolean │  varchar  │
+├───────────┼─────────────────────────────────┼─────────────┼───────────────┼─────────┼───────────┤
+│ tt0048140 │ Guys and Dolls                  │        1955 │           7.1 │ false   │ movie     │
+│ tt0062776 │ Candy                           │        1968 │           5.1 │ false   │ movie     │
+│ tt0112883 │ Don Juan DeMarco                │        1994 │           6.7 │ false   │ movie     │
+│ tt0099615 │ The Freshman                    │        1990 │           6.5 │ false   │ movie     │
+│ tt0049830 │ The Teahouse of the August Moon │        1956 │           6.6 │ false   │ movie     │
+└───────────┴─────────────────────────────────┴─────────────┴───────────────┴─────────┴───────────┘

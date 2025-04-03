@@ -1,29 +1,27 @@
-// a.name changed to 'James Cagney'
-
-┌───────────┬─────────────────┬───┬────────────────┬──────────────────────┐
-│    tID    │  primaryTitle   │ … │ knownForTitles │  primaryProfession   │
-│  varchar  │     varchar     │   │    varchar     │       varchar        │
-├───────────┼─────────────────┼───┼────────────────┼──────────────────────┤
-│ tt0000009 │ testShort 1     │ … │ tt0000004      │ actor,director,pro…  │
-│ tt0000019 │ testShort 2     │ … │ tt0000019      │ actor,director,pro…  │
-│ tt0000031 │ testShort 2     │ … │ tt0000031      │ actor,director,pro…  │
-│ tt0000041 │ testShort 2     │ … │ tt0000041      │ actor,director,pro…  │
-│ tt0000021 │ testShort 2     │ … │ tt0000021      │ actor,director,pro…  │
-│ tt0000011 │ testShort 2     │ … │ tt0000011      │ actor,director,pro…  │
-│ tt0000015 │ testShort 2     │ … │ tt0000015      │ actor,director,pro…  │
-│ tt0000020 │ testShort 2     │ … │ tt0000020      │ actor,director,pro…  │
-│ tt0000018 │ testShort 2     │ … │ tt0000018      │ actor,director,pro…  │
-│ tt0000004 │ Poor Pierrot    │ … │ tt0000004      │ actor,director,pro…  │
-│ tt0000028 │ testShort 2     │ … │ tt0000028      │ actor,director,pro…  │
-│ tt0000034 │ testShort 2     │ … │ tt0000034      │ actor,director,pro…  │
-│ tt0000044 │ testShort 2     │ … │ tt0000044      │ actor,director,pro…  │
-│ tt0000038 │ testShort 2     │ … │ tt0000038      │ actor,director,pro…  │
-│ tt0000048 │ testtvepisode 2 │ … │ tt0000048      │ actor,director,pro…  │
-│ tt0000014 │ testShort 2     │ … │ tt0000014      │ actor,director,pro…  │
-│ tt0000024 │ testShort 2     │ … │ tt0000024      │ actor,director,pro…  │
-│ tt0000025 │ testShort 2     │ … │ tt0000025      │ actor,director,pro…  │
-│ tt0000035 │ testShort 2     │ … │ tt0000035      │ actor,director,pro…  │
-│ tt0000029 │ testShort 2     │ … │ tt0000029      │ actor,director,pro…  │
-├───────────┴─────────────────┴───┴────────────────┴──────────────────────┤
-│ 20 rows                                            18 columns (4 shown) │
-└─────────────────────────────────────────────────────────────────────────┘
+┌────────────┬───────────────────────────────────────┬─────────────┬───────────────┬─────────┬───────────┐
+│    tID     │             primaryTitle              │ releaseYear │ averageRating │ isAdult │ titleType │
+│  varchar   │                varchar                │    int32    │    double     │ boolean │  varchar  │
+├────────────┼───────────────────────────────────────┼─────────────┼───────────────┼─────────┼───────────┤
+│ tt0353065  │ Here's Hollywood                      │        1960 │           8.5 │ false   │ series    │
+│ tt0360833  │ Nelson Freire                         │        2003 │           7.9 │ false   │ movie     │
+│ tt0072272  │ That's Entertainment!                 │        1974 │           7.8 │ false   │ movie     │
+│ tt0087322  │ George Stevens: A Filmmaker's Journey │        1984 │           7.7 │ false   │ movie     │
+│ tt0027125  │ Top Hat                               │        1935 │           7.7 │ false   │ movie     │
+│ tt0062572  │ It Takes a Thief                      │        1968 │           7.5 │ false   │ series    │
+│ tt0028333  │ Swing Time                            │        1936 │           7.5 │ false   │ movie     │
+│ tt5845320  │ Leslie Caron: The Reluctant Star      │        2016 │           7.5 │ false   │ movie     │
+│ tt0025164  │ The Gay Divorcee                      │        1934 │           7.4 │ false   │ movie     │
+│ tt10267396 │ Sid & Judy                            │        2019 │           7.4 │ false   │ movie     │
+│ tt0029546  │ Shall We Dance                        │        1937 │           7.4 │ false   │ movie     │
+│ tt0045537  │ The Band Wagon                        │        1953 │           7.4 │ false   │ movie     │
+│ tt0034862  │ Holiday Inn                           │        1942 │           7.3 │ false   │ movie     │
+│ tt0032284  │ Broadway Melody of 1940               │        1940 │           7.3 │ false   │ movie     │
+│ tt0075323  │ That's Entertainment, Part II         │        1976 │           7.3 │ false   │ movie     │
+│ tt0040308  │ Easter Parade                         │        1948 │           7.3 │ false   │ movie     │
+│ tt0035583  │ You Were Never Lovelier               │        1942 │           7.2 │ false   │ movie     │
+│ tt0322431  │ Going Hollywood: The '30s             │        1984 │           7.2 │ false   │ movie     │
+│ tt0027630  │ Follow the Fleet                      │        1936 │           7.1 │ false   │ movie     │
+│ tt0072742  │ Brother Can You Spare a Dime          │        1975 │           7.1 │ false   │ movie     │
+├────────────┴───────────────────────────────────────┴─────────────┴───────────────┴─────────┴───────────┤
+│ 20 rows                                                                                      6 columns │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┘

@@ -19,6 +19,7 @@ type updateRatingRequest struct {
 	Rating float64 `json:"rating"`
 }
 
+// R6
 func GetMovies(c *gin.Context) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	defer db.Close()
@@ -74,7 +75,7 @@ func GetMovies(c *gin.Context) {
 	}
 
 	if title_keyword != "" {
-		query += fmt.Sprintf("AND a.originalTitle LIKE '%%%s%%'", title_keyword)
+		query += fmt.Sprintf("AND a.primaryTitle LIKE '%%%s%%'", title_keyword)
 	}
 
 	if start_year != "" && end_year != "" {
@@ -122,6 +123,7 @@ func GetMovies(c *gin.Context) {
 	c.JSON(http.StatusOK, results)
 }
 
+// 
 func GetMovie(c *gin.Context) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	defer db.Close()
@@ -169,6 +171,7 @@ func GetMovie(c *gin.Context) {
 	c.JSON(http.StatusOK, results)
 }
 
+// R8
 func UpdateRating(c *gin.Context) {
 	var requestBody updateRatingRequest
 
@@ -206,6 +209,7 @@ func UpdateRating(c *gin.Context) {
 	c.JSON(http.StatusOK, "rating updated")
 }
 
+// R9
 func GetHighestMovieActor(c *gin.Context) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	defer db.Close()
