@@ -57,7 +57,8 @@ func userExists(db *sql.DB, name string) (bool, error) {
 
 func checkCredential(db *sql.DB, name string, password string) (bool, error) {
 	var match bool
-	query := "SELECT EXISTS(SELECT * FROM users WHERE name = ? AND password = sha256(?))"
+	var encrypted_pass = sha256(password)
+	query := "SELECT EXISTS(SELECT * FROM users WHERE name = ? AND password = encrypted_pass)"
 
 	err := db.QueryRow(query, name, password).Scan(&match)
 	if err != nil {
@@ -275,10 +276,10 @@ func SignUp(c *gin.Context) {
 		Name:     requestBody.Name,
 		Dob:      requestBody.Dob,
 		Language: requestBody.Language,
-		Password: requestBody.Password,
+		Password: sha256(requestBody.Password),
 	}
 
-	stmt, err := db.Prepare("INSERT INTO users(uid, name, dob, password, language) VALUES (?, ?, ?, sha256(?), ?)")
+	stmt, err := db.Prepare("INSERT INTO users(uid, name, dob, password, language) VALUES (?, ?, ?, ?, ?)")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, httpError{
 			StatusCode: http.StatusInternalServerError,

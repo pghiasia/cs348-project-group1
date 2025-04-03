@@ -3,7 +3,17 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { loadSlim } from "@tsparticles/slim";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { useNavigate } from 'react-router-dom';
-import {particleFunc} from './particleOptions'
+import { particleFunc } from './particleOptions'
+
+// Function to hash password using SHA-256
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
 
 function Login() {
   const [init, setInit] = useState(false);
@@ -21,19 +31,22 @@ function Login() {
     e.preventDefault(); // Prevent form from submitting normally
 
     try {
-      if (type === "signup" && 
+      if (type === "signup" &&
         (name === '' || password === '' || dob === '' || language === '')) {
-          setSignupError(true)
-          setSignupErrorDesc("Please fill out all fields")
-          throw new Error('Please fill out all fields');
+        setSignupError(true)
+        setSignupErrorDesc("Please fill out all fields")
+        throw new Error('Please fill out all fields');
       }
-      console.log(JSON.stringify({ name, password, language, dob }));
+
+      // Hash the password before sending
+      const hashedPassword = await hashPassword(password);
+      console.log(JSON.stringify({ name, password: hashedPassword, language, dob }));
       const response = await fetch(`http://localhost:9888/user/${type}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, password, language, dob }),
+        body: JSON.stringify({ name, password: hashedPassword, language, dob }),
       });
 
       if (!response.ok) {
