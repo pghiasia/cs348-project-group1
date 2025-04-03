@@ -123,7 +123,7 @@ func GetMovies(c *gin.Context) {
 	c.JSON(http.StatusOK, results)
 }
 
-// 
+// R7
 func GetMovie(c *gin.Context) {
 	db, err := sql.Open("duckdb", "./movie.db")
 	defer db.Close()

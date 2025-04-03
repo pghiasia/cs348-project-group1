@@ -1,0 +1,15 @@
+┌─────────────┐
+│    genre    │
+│   varchar   │
+├─────────────┤
+│ Documentary │
+│ Short       │
+└─────────────┘
+┌────────────────┐
+│      name      │
+│    varchar     │
+├────────────────┤
+│ Fred Astaire   │
+│ Lauren Bacall  │
+│ Ingrid Bergman │
+└────────────────┘
