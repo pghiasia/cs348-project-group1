@@ -39,7 +39,7 @@ func LoadUsersTable(filePath string) {
 
 	_, err = db.Exec(`
         INSERT INTO users 
-        SELECT uID, name, DOB, language, password
+        SELECT uID, name, DOB, language, sha256(password)
         FROM read_csv(?)`,
 		filePath)
 	if err != nil {
